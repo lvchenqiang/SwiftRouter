@@ -17,6 +17,7 @@
 		615BEAB920567A1A00B6AA46 /* KATRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BEAB820567A1A00B6AA46 /* KATRouter.swift */; };
 		615BEABB2057594300B6AA46 /* KATNavTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BEABA2057594200B6AA46 /* KATNavTransition.swift */; };
 		61862DE02057600C0003CBE0 /* KATMacros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61862DDF2057600C0003CBE0 /* KATMacros.swift */; };
+		854E5E5F205B5C8900D2B2F4 /* KATRouterRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854E5E5E205B5C8900D2B2F4 /* KATRouterRootVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		615BEAB820567A1A00B6AA46 /* KATRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATRouter.swift; sourceTree = "<group>"; };
 		615BEABA2057594200B6AA46 /* KATNavTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATNavTransition.swift; sourceTree = "<group>"; };
 		61862DDF2057600C0003CBE0 /* KATMacros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATMacros.swift; sourceTree = "<group>"; };
+		854E5E5E205B5C8900D2B2F4 /* KATRouterRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATRouterRootVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				61862DDF2057600C0003CBE0 /* KATMacros.swift */,
 				615BEAB820567A1A00B6AA46 /* KATRouter.swift */,
 				615BEABA2057594200B6AA46 /* KATNavTransition.swift */,
+				854E5E5E205B5C8900D2B2F4 /* KATRouterRootVC.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 				615BEAB62056720900B6AA46 /* APPController.swift in Sources */,
 				615BEAB920567A1A00B6AA46 /* KATRouter.swift in Sources */,
 				61862DE02057600C0003CBE0 /* KATMacros.swift in Sources */,
+				854E5E5F205B5C8900D2B2F4 /* KATRouterRootVC.swift in Sources */,
 				615BEABB2057594300B6AA46 /* KATNavTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

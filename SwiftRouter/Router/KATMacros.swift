@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-//MARK:-UI  Layout
+//MARK:UI  Layout
 // 屏幕宽度
 let kScreenH = UIScreen.main.bounds.height
 // 屏幕高度
@@ -22,7 +22,7 @@ func NEWWIDTH(_ x:CGFloat)->CGFloat{
 func NEWHEIGHT(_ y:CGFloat)->CGFloat{
     return ((y)/1334.0 * kScreenH);
 }
-// MARK:- 颜色方法
+// MARK:颜色方法
 func RGBA(r:CGFloat, g:CGFloat, b:CGFloat, a:CGFloat = 1) -> UIColor {
     if #available(iOS 10.0, *) {
         return UIColor(displayP3Red: r/255.0, green: g/255.0, blue: b/255.0, alpha:a);
