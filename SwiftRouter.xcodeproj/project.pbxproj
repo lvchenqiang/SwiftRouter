@@ -82,12 +82,20 @@
 		615BEAB720567A0700B6AA46 /* Router */ = {
 			isa = PBXGroup;
 			children = (
+				856DC755205F498C00DB892B /* Struct */,
 				61862DDF2057600C0003CBE0 /* KATMacros.swift */,
 				615BEAB820567A1A00B6AA46 /* KATRouter.swift */,
 				615BEABA2057594200B6AA46 /* KATNavTransition.swift */,
 				854E5E5E205B5C8900D2B2F4 /* KATRouterRootVC.swift */,
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		856DC755205F498C00DB892B /* Struct */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Struct;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
