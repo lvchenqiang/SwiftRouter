@@ -40,6 +40,10 @@ class KATHashMap<T>: NSObject,NSCopying {
     /// 转对象的构造方法
     var keySelector:String = ""
     
+   fileprivate var _key:String = "" //索引表
+   fileprivate var _value:Any! //值表
+   fileprivate var _deleteCount = 0 //删除的次数
+    
     
 //    private *_key:nss;//索引表
 //    id *_value;//值表
@@ -74,7 +78,20 @@ class KATHashMap<T>: NSObject,NSCopying {
         
     }
     
-
+    /// 放置一个字典
+    func putDictionary()->Int{
+        
+        
+        
+        
+        
+        
+        
+        return 0;
+    }
+    
+    
+    
     func copy(with zone: NSZone? = nil) -> Any {
         let hashMap = KATHashMap();
         
