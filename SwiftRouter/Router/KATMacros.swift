@@ -22,6 +22,9 @@ func NEWWIDTH(_ x:CGFloat)->CGFloat{
 func NEWHEIGHT(_ y:CGFloat)->CGFloat{
     return ((y)/1334.0 * kScreenH);
 }
+func M_RECT(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat)->CGRect{
+    return CGRect(x: x, y: y, width: w, height: h);
+}
 // MARK:颜色方法
 func RGBA(r:CGFloat, g:CGFloat, b:CGFloat, a:CGFloat = 1) -> UIColor {
     if #available(iOS 10.0, *) {

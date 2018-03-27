@@ -11,12 +11,12 @@ import UIKit
 
 typealias BlockVoidToVoid = () -> (Void)
 
-typealias ClosureType = @convention(c) (UIViewController, Selector, UIViewController, Bool, BlockVoidToVoid?) -> Void
+typealias PresentType = @convention(c) (UIViewController, Selector, UIViewController, Bool, BlockVoidToVoid?) -> Void
 
 
-typealias PresentType = @convention(c) (UIViewController,UIViewController,Bool,BlockVoidToVoid?)->(Void)
+typealias DismissType = @convention(c) (UIViewController, Selector, Bool,BlockVoidToVoid?)->(Void)
 
-
+typealias BaseBlockType = (_ elements: Any...) -> (Void)
 
 // MARK:定义路由的协议
 protocol KATRouterDelegate: NSObjectProtocol {
@@ -84,9 +84,10 @@ class KATRouter: NSObject {
     fileprivate var rootVC = KATRouterRootVC();
     ///根VC背景图
     fileprivate var rootBg = UIImageView();
+    /// 主窗口视图
     fileprivate var window = UIApplication.shared.keyWindow;
      // MARK:路由相关
-    /// 路由是否可用  默认可用
+     /// 路由是否可用  默认可用
      var isDisabled = false;
     /// 路由是否暂停  默认可用
      var isWaitting = false;
@@ -95,13 +96,7 @@ class KATRouter: NSObject {
     /// 原始函数IMP
     var _presentViewController:IMP?
     var _dissmissViewController:IMP?
-    
-    
-    var topVC:UIViewController?
-   
-    
 
-    
     
    // MARK:app 生命周期的回调
         /// app即将变为活跃
@@ -153,7 +148,7 @@ class KATRouter: NSObject {
         
         
         //打开应用 本地或者远程
-        router.appOpenedWithURLAction = {(url,info) in
+        router.appOpenedWithURLAction = {(url,info) in 
             debugPrint("打开应用 本地或者远程");
             return true;
         }
@@ -162,23 +157,27 @@ class KATRouter: NSObject {
         //App代理方法挂钩
         hookAppDelegate();
         
+       /// 处理跟视图
+        router.rootVC = KATRouterRootVC();
+        router.rootBg.frame = router.rootVC.view.bounds;
+        router.rootBg.contentMode = .scaleAspectFill;
+        router.rootBg.image = UIImage.launchImage();
         
-      
-        
-        
-        
-        
-        
-        
-        
+   
         
         
         
+        if(router.window == nil){
+            router.window = UIWindow(frame: M_RECT(0,0,kScreenW,kScreenH));
+        }
         
         
         
         
         
+        /// 显示主控制器
+        router.window?.rootViewController = router.rootVC;
+        router.window?.makeKeyAndVisible();
         
         return router;
     }();
@@ -230,7 +229,24 @@ extension KATRouter{
 // MARK:处理相关的通知方法
 extension KATRouter{
  @objc func deviceOrientationDidChange(){
-    debugPrint("屏幕旋转事件:\(KATAppUtil.currentOrientation())");
+    
+    
+    switch KATAppUtil.currentOrientation() {
+    case .unknown:
+        debugPrint("unknown");
+    case .portrait:
+        debugPrint("Device oriented vertically, home button on the bottom");
+    case .portraitUpsideDown:
+        debugPrint("Device oriented vertically, home button on the top");
+    case .landscapeLeft:
+        debugPrint("Device oriented horizontally, home button on the right");
+    case .landscapeRight:
+        debugPrint("Device oriented horizontally, home button on the left");
+    case .faceUp:
+        debugPrint("Device oriented flat, face up");
+    case .faceDown:
+        debugPrint("Device oriented flat, face down");
+    }
     }
     
 }
@@ -248,6 +264,20 @@ extension KATRouter{
     class func setRouteAction(action:@escaping (NSDictionary)-> Void){
         KATRouter.shareRouter.routeAction = action;
     }
+    
+    // MARK:注册路由控制器 只有注册过的控制器才能使用
+    
+    /// 注册路由控制器 只有注册过的控制器才能使用
+    ///
+    /// - Parameters:
+    ///   - className: 类名
+    ///   - host: 对应的路由host
+    /// - Returns: 是否成功
+    class func registeRouter(className:String, host:String) -> Bool {
+        
+        return false;
+    }
+    
     
 }
 
@@ -303,32 +333,34 @@ extension KATRouter{
     // MARK:app  已经变为激活状态
     @objc func applicationDidBecomeActive(_ application: UIApplication) {
         
-       
-        
+        debugPrint("应用已经变为激活状态");
         
     }
     
      // MARK:app  已经进入后台
    @objc  func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    debugPrint("应用已经进入后台");
+    
     }
     
     // MARK:app  已经进入前台
    @objc func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    
+    debugPrint("应用即将进入前台");
+    
     }
     
     
    // MARK: APP 已经失活
    @objc func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+
+    debugPrint("应用即将失活");
     }
     
     // MARK: app 即将退出
    @objc func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    debugPrint("应用即将退出");
     }
     
 }
@@ -342,16 +374,17 @@ extension KATRouter {
         
         let originMethod = class_getInstanceMethod(UIViewController.self, originSelector)
         
-        let originalIMP = unsafeBitCast(method_getImplementation(originMethod!), to: ClosureType.self);
+        let originalIMP = unsafeBitCast(method_getImplementation(originMethod!), to: PresentType.self);
         
         let newFunc:@convention(block) (UIViewController,UIViewController,Bool,BlockVoidToVoid?)->(Void) = {
             (fromvc,tovc,flag,completion) in
             
             debugPrint("开始调用--present-----");
-            
+            debugPrint("fromvc: \(fromvc) \n tovc: \(tovc)")
             originalIMP(fromvc, originSelector, tovc, flag, completion);
             
-            debugPrint("结束调用--present------");
+             debugPrint("结束调用--present------");
+            debugPrint("结束调用--present---%@---",KATAppUtil.topViewController());
             
         };
         
@@ -360,35 +393,38 @@ extension KATRouter {
         
         method_setImplementation(originMethod!, imp)
     
-    
-    
-
         
     }
     
+    /// hook dismiss函数
    class func hookDissVC(){
         
-//    let originSelector =  #selector(UIViewController.present(_:animated:completion:))
+    let originSelector =  #selector(UIViewController.dismiss(animated:completion:))
+    let originMethod = class_getInstanceMethod(UIViewController.self, originSelector)
 //
-//    let originMethod = class_getInstanceMethod(UIViewController.self, originSelector)
-//
-//    let originalIMP = unsafeBitCast(method_getImplementation(originMethod!), to: ClosureType.self);
-//
-//    let newFunc:@convention(block) (UIViewController,UIViewController,Bool,BlockVoidToVoid?)->(Void) = {
-//        (fromvc,tovc,flag,completion) in
-//
-//        debugPrint("开始调用--present-----");
-//
-//        originalIMP(fromvc,originSelector,tovc,flag,completion);
-//
-//        debugPrint("结束调用--present------");
-//
-//    };
-//
-//
-//    let imp = imp_implementationWithBlock(unsafeBitCast(newFunc, to: AnyObject.self))
-//
-//    method_setImplementation(originMethod!, imp)
+    let originalIMP = unsafeBitCast(method_getImplementation(originMethod!), to: DismissType.self);
+
+    let newFunc:@convention(block) (UIViewController, Bool,BlockVoidToVoid?)->(Void) = {
+        (tovc,flag,completion) in
+
+        debugPrint("开始调用--dismiss---%@----%d----%@-",tovc,flag);
+
+        originalIMP(tovc,originSelector,flag,completion);
+
+        
+        
+        debugPrint("结束调用--dismiss---%@---",KATAppUtil.topViewController());
+
+    };
+
+    let imp = imp_implementationWithBlock(unsafeBitCast(newFunc, to: AnyObject.self))
+    method_setImplementation(originMethod!, imp)
+    
+//    let bc:BaseBlockType?
+//    bc!("1","2","3","4");
+    
+ 
+    
     
     }
     

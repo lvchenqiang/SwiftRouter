@@ -63,7 +63,7 @@ class KATSwizzle : NSObject {
     class func hookFunc<T>(originalCls:AnyClass, selector: Selector, callback:T){
         
         
-        
+     
         
         
     }

@@ -25,6 +25,7 @@
 		8590357F20650E3900B61275 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8590357E20650E3900B61275 /* SecondViewController.swift */; };
 		859035A62068C81600B61275 /* KATLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859035A52068C81600B61275 /* KATLock.swift */; };
 		859035AB2068EF6400B61275 /* KATAspects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859035AA2068EF6400B61275 /* KATAspects.swift */; };
+		85BC79D8206A3E5500E7436D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BC79D7206A3E5500E7436D /* UIImage+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		8590357E20650E3900B61275 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		859035A52068C81600B61275 /* KATLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATLock.swift; sourceTree = "<group>"; };
 		859035AA2068EF6400B61275 /* KATAspects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATAspects.swift; sourceTree = "<group>"; };
+		85BC79D7206A3E5500E7436D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		615BEAB720567A0700B6AA46 /* Router */ = {
 			isa = PBXGroup;
 			children = (
+				85BC79D5206A3E0800E7436D /* Category */,
 				859035752063461B00B61275 /* KATAppUtil */,
 				856DC755205F498C00DB892B /* Struct */,
 				61862DDF2057600C0003CBE0 /* KATMacros.swift */,
@@ -125,6 +128,22 @@
 				859035AA2068EF6400B61275 /* KATAspects.swift */,
 			);
 			path = KATAppUtil;
+			sourceTree = "<group>";
+		};
+		85BC79D5206A3E0800E7436D /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				85BC79D6206A3E4B00E7436D /* UIImage+Extension */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		85BC79D6206A3E4B00E7436D /* UIImage+Extension */ = {
+			isa = PBXGroup;
+			children = (
+				85BC79D7206A3E5500E7436D /* UIImage+Extension.swift */,
+			);
+			path = "UIImage+Extension";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +229,7 @@
 				615BEAB62056720900B6AA46 /* APPController.swift in Sources */,
 				615BEAB920567A1A00B6AA46 /* KATRouter.swift in Sources */,
 				61862DE02057600C0003CBE0 /* KATMacros.swift in Sources */,
+				85BC79D8206A3E5500E7436D /* UIImage+Extension.swift in Sources */,
 				859035A62068C81600B61275 /* KATLock.swift in Sources */,
 				854E5E5F205B5C8900D2B2F4 /* KATRouterRootVC.swift in Sources */,
 				859035AB2068EF6400B61275 /* KATAspects.swift in Sources */,

@@ -18,10 +18,11 @@ class SecondViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event);
+//        super.touchesBegan(touches, with: event);
         
+//        self.dismiss(animated: false, completion: nil);
         
-        self.dismiss(animated: false, completion: nil);
+        self.present(ViewController(), animated:false , completion: nil);
         
     }
 

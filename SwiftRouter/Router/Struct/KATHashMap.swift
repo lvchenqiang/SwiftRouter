@@ -52,7 +52,6 @@ class KATHashMap<T>: NSObject,NSCopying {
 //    var value:Dictionary<Hashable, Any>!
 //    var value1:NSDictionary!
     
-    
     // MARK:构造方法
     class func hashMap(_ capacity:NSInteger, _ maxUsage:NSInteger) -> KATHashMap{
         let hashMap = KATHashMap()
