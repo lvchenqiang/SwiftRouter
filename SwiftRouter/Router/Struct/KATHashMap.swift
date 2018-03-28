@@ -65,7 +65,7 @@ class KATHashMap<T>: NSObject,NSCopying {
         }else{
             hashMap.initData(capacity, maxUsage);
         }
-     
+    
         return hashMap;
     }
     
@@ -79,10 +79,7 @@ class KATHashMap<T>: NSObject,NSCopying {
     }
     
     /// 放置一个字典
-    func putDictionary()->Int{
-        
-        
-        
+    func putDictionary(dict:NSDictionary)->Int{
         
         
         
@@ -91,6 +88,10 @@ class KATHashMap<T>: NSObject,NSCopying {
     }
     
     
+    
+    deinit {
+        debugPrint("释放对象");
+    }
     
     func copy(with zone: NSZone? = nil) -> Any {
         let hashMap = KATHashMap();
