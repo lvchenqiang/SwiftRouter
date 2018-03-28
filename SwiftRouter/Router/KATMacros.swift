@@ -16,15 +16,22 @@ let kScreenH = UIScreen.main.bounds.height
 // 屏幕高度
 let kScreenW = UIScreen.main.bounds.width
 //计算布局属性
-func NEWWIDTH(_ x:CGFloat)->CGFloat{
-    return ((x) / 750.0 * kScreenW);
-}
-func NEWHEIGHT(_ y:CGFloat)->CGFloat{
-    return ((y)/1334.0 * kScreenH);
-}
+let FIT_WIDTH : (CGFloat)->CGFloat = { f in f/750.0*kScreenW }
+let FIT_Height : (CGFloat)->CGFloat = { f in f/1334.0*kScreenH }
 func M_RECT(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat)->CGRect{
     return CGRect(x: x, y: y, width: w, height: h);
 }
+
+// MARK:- 字体方法
+func FONT(_ s:CGFloat)->UIFont{
+    return UIFont.systemFont(ofSize: FIT_WIDTH(s));
+}
+
+// MARK:- 粗体方法
+func FONT_BOLD(_ s:CGFloat)->UIFont{
+    return UIFont.boldSystemFont(ofSize: FIT_WIDTH(s))
+}
+
 // MARK:颜色方法
 func RGBA(r:CGFloat, g:CGFloat, b:CGFloat, a:CGFloat = 1) -> UIColor {
     if #available(iOS 10.0, *) {
@@ -33,4 +40,20 @@ func RGBA(r:CGFloat, g:CGFloat, b:CGFloat, a:CGFloat = 1) -> UIColor {
         return UIColor (red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
     };
     
+}
+
+// MARK:- 延时调用
+func Delay_time(_ delayInSeconds:Double,block:@escaping ()->()){
+    DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds, execute: {
+        block();
+    })
+    
+}
+// MARK:- 自定义log
+func LLog<T>(_ message : T, fileName : String = #file, lineNum : Int = #line) {
+    #if DEBUG
+        // 处理fileName
+        let file = (fileName as NSString).lastPathComponent
+        print("\(file):[\(lineNum)] \(message)")
+    #endif
 }
