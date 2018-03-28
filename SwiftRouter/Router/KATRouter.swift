@@ -91,7 +91,7 @@ class KATRouter: NSObject {
      var isDisabled = false;
     /// 路由是否暂停  默认可用
      var isWaitting = false;
-    
+
     
     /// 原始函数IMP
     var _presentViewController:IMP?
@@ -172,9 +172,8 @@ class KATRouter: NSObject {
         }
         
         
-        
-        
-        
+      
+        initialize()
         /// 显示主控制器
         router.window?.rootViewController = router.rootVC;
         router.window?.makeKeyAndVisible();
@@ -329,7 +328,7 @@ extension KATRouter{
     }
     
     
-    
+    /// 大量的@objc 会增加二进制文件的大小
     // MARK:app  已经变为激活状态
     @objc func applicationDidBecomeActive(_ application: UIApplication) {
         
