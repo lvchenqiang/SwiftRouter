@@ -23,21 +23,21 @@ typealias RefreshBlocking = (_ refreshType:RefreshBlockingType) -> ()
 
 extension UIScrollView{
     private struct AssociatedKeys {
-        static var lv_header_refresh = "lv_header_refresh"
-        static var lv_footer_refresh = "lv_footer_refresh"
-        static var lv_refresh_block  = "lv_refresh_block"
+        static var kHeaderRefresh = "kHeaderRefresh"
+        static var kFooterRefresh = "kFooterRefresh"
+        static var kRefreshBlock  = "kRefreshBlock"
     }
     
     
     fileprivate var refreshBlocking:RefreshBlocking?{
         
         get {
-            return (objc_getAssociatedObject(self, &AssociatedKeys.lv_refresh_block) as? RefreshBlocking) ?? nil
+            return (objc_getAssociatedObject(self, &AssociatedKeys.kRefreshBlock) as? RefreshBlocking) ?? nil
             
         }
         
         set{
-            objc_setAssociatedObject(self, &AssociatedKeys.lv_refresh_block, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY)
+            objc_setAssociatedObject(self, &AssociatedKeys.kRefreshBlock, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY)
         }
         
     }
@@ -46,11 +46,11 @@ extension UIScrollView{
     fileprivate  var isRefreshHeader:Bool{
         
         get {
-            return (objc_getAssociatedObject(self, &AssociatedKeys.lv_header_refresh) as? Bool) ?? false
+            return (objc_getAssociatedObject(self, &AssociatedKeys.kHeaderRefresh) as? Bool) ?? false
         }
         
         set{
-            objc_setAssociatedObject(self, &AssociatedKeys.lv_header_refresh, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN)
+            objc_setAssociatedObject(self, &AssociatedKeys.kHeaderRefresh, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN)
             setupRefreshHeader()
             
         }
@@ -61,10 +61,10 @@ extension UIScrollView{
     fileprivate  var isRefreshFooter:Bool{
         
         get {
-            return (objc_getAssociatedObject(self, &AssociatedKeys.lv_footer_refresh) as? Bool) ?? false
+            return (objc_getAssociatedObject(self, &AssociatedKeys.kFooterRefresh) as? Bool) ?? false
         }
         set{
-            objc_setAssociatedObject(self, &AssociatedKeys.lv_footer_refresh, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN)
+            objc_setAssociatedObject(self, &AssociatedKeys.kFooterRefresh, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN)
             setupRefreshFooter()
         }
         

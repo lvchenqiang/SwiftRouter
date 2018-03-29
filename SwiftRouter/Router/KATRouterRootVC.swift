@@ -15,10 +15,10 @@ class KATRouterRootVC: UIViewController {
         self.view.backgroundColor = UIColor.yellow;
 
         
-        for i in (0...100).reversed(){
-            a.put(value: "\(i)" as NSString);
-            debugPrint("----- \(a.getValue(index: i))")
-        }
+//        for i in (0...100).reversed(){
+//            a.put(value: "\(i)" as NSString);
+//            debugPrint("----- \(a.getValue(index: i))")
+//        }
         
     }
     
