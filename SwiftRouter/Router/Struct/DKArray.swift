@@ -106,7 +106,7 @@ extension DKArray {
         
         return false;
     }
-    
+    /// 获取元素
     func getValue(index:Int) -> T{
         if(index >= 0 && index < _length){
             return _member[index];
@@ -114,6 +114,45 @@ extension DKArray {
         return _value
     }
 
+    
+    /// 添加DKArray对象元素
+    @discardableResult
+    func putArray(tmparray:DKArray, index:Int = 0) -> Bool {
+        if(tmparray.length <= 0 || index<0 || index > self.length){ /// 数组长度小于0 索引位置不再当前数组范围内
+            return false;
+        }else if(tmparray.length + index > self._capacity){ /// 数组长度超过了容量
+            if(self.autoExpand){ /// 允许自动扩容
+                let tmpcap = self._capacity + tmparray.length;
+                let _len = self.length;
+                let memebers = _member;
+                initData(capacity: tmpcap,value: _value);
+                _length = _len;
+                _member.initialize(from: memebers, count: _len);
+                free(memebers);
+                return self.putArray(tmparray: tmparray, index: index);
+    
+            }else{ /// 不扩容
+                return false;
+            }
+            
+        }else{ /// 当前容量充足
+            /// 值偏移
+            for i in (index+tmparray.length..<_length+tmparray.length).reversed(){
+                _member[i] = _member[i - tmparray.length];
+            }
+            /// 重新赋值
+            for i in index..<tmparray.length {
+                _member[i] = tmparray.getValue(index: i - index);
+            }
+            return true;
+        }
+        
+        
+        
+    }
+    
+    
+    
     // MARK:私有方法
     //初始化数据
     fileprivate func initData(capacity:Int , value:T){
