@@ -35,6 +35,7 @@
 		859035AB2068EF6400B61275 /* KATAspects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859035AA2068EF6400B61275 /* KATAspects.swift */; };
 		85A31C14206B3CA800D66CBF /* DKArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A31C13206B3CA800D66CBF /* DKArray.swift */; };
 		85BC79D8206A3E5500E7436D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BC79D7206A3E5500E7436D /* UIImage+Extension.swift */; };
+		85E79AA0206CF1A9007D378B /* UIView+BlockGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E79A9F206CF1A9007D378B /* UIView+BlockGesture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		859035AA2068EF6400B61275 /* KATAspects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATAspects.swift; sourceTree = "<group>"; };
 		85A31C13206B3CA800D66CBF /* DKArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKArray.swift; sourceTree = "<group>"; };
 		85BC79D7206A3E5500E7436D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		85E79A9F206CF1A9007D378B /* UIView+BlockGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+BlockGesture.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 		85BC79D5206A3E0800E7436D /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				85E79A9E206CF170007D378B /* UIView+BlockGesture */,
 				6158D303206A9067001EBEC8 /* UIView+Animation */,
 				6158D300206A8F30001EBEC8 /* UIScrollView+Extension */,
 				6158D2FB206A8A5B001EBEC8 /* UIViewController+Extenstion */,
@@ -227,6 +230,14 @@
 				85BC79D7206A3E5500E7436D /* UIImage+Extension.swift */,
 			);
 			path = "UIImage+Extension";
+			sourceTree = "<group>";
+		};
+		85E79A9E206CF170007D378B /* UIView+BlockGesture */ = {
+			isa = PBXGroup;
+			children = (
+				85E79A9F206CF1A9007D378B /* UIView+BlockGesture.swift */,
+			);
+			path = "UIView+BlockGesture";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +330,7 @@
 				85A31C14206B3CA800D66CBF /* DKArray.swift in Sources */,
 				615BEAB920567A1A00B6AA46 /* KATRouter.swift in Sources */,
 				61862DE02057600C0003CBE0 /* KATMacros.swift in Sources */,
+				85E79AA0206CF1A9007D378B /* UIView+BlockGesture.swift in Sources */,
 				85BC79D8206A3E5500E7436D /* UIImage+Extension.swift in Sources */,
 				859035A62068C81600B61275 /* KATLock.swift in Sources */,
 				6158D2FD206A8A69001EBEC8 /* UIViewController+Extenstion.swift in Sources */,

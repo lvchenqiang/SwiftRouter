@@ -64,8 +64,14 @@ class KATAppUtil: NSObject {
         }
     }
     
-
-
+   
+    /// 改变屏幕的亮度
+    func changeBrightness(brightness:CGFloat = 0.5){
+    //调整屏幕的亮度，0-1之间的数字，亮度只在app为active状态有效，background状态会恢复
+        UIScreen.main.brightness = brightness;
+    //设置为YES时，会在屏幕上加一层dimming view，所以设置为0时也会有一定的亮度哦
+       UIScreen.main.wantsSoftwareDimming = true
+    }
     
     
     
