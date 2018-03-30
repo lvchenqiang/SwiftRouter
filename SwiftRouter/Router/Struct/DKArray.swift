@@ -99,8 +99,7 @@ extension DKArray {
             
                 free(memebers);
                 return self.put(value: value);
-      
-                
+
             }
         }
         

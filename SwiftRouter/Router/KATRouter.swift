@@ -410,8 +410,7 @@ extension KATRouter {
 
         originalIMP(tovc,originSelector,flag,completion);
 
-        
-        
+
         debugPrint("结束调用--dismiss---%@---",KATAppUtil.topViewController());
 
     };
@@ -419,8 +418,6 @@ extension KATRouter {
     let imp = imp_implementationWithBlock(unsafeBitCast(newFunc, to: AnyObject.self))
     method_setImplementation(originMethod!, imp)
     
-//    let bc:BaseBlockType?
-//    bc!("1","2","3","4");
     
  
     
