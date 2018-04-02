@@ -108,18 +108,17 @@ extension DKArray {
           
         }else{
             if(self.autoExpand){ //自动扩容
-            ///保存原先的数据
-            let _len = _length;
-            let memebers = _member;
-         
-            initData(capacity: 2 * _capacity,value: _value);
-            _length = _len;
-            _member.initialize(from: memebers, count: _len);
-        
-            free(memebers);
-            return self.put(value: value);
-  
-                
+                ///保存原先的数据
+                let _len = _length;
+                let memebers = _member;
+             
+                initData(capacity: 2 * _capacity,value: _value);
+                _length = _len;
+                _member.initialize(from: memebers, count: _len);
+            
+                free(memebers);
+                return self.put(value: value);
+
             }
         }
         
