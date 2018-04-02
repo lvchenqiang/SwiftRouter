@@ -15,17 +15,6 @@ class KATRouterRootVC: UIViewController {
         self.view.backgroundColor = UIColor.yellow;
 
         
-        for i in (0...100).reversed(){
-            a.put(value: "\(i)" as NSString);
-            debugPrint("----- \(a.getValue(index: i))")
-        }
-        
-        for i in (0...100).reversed(){
-            a.put(value: "\(i)" as NSString);
-            debugPrint("----- \(a.getValue(index: i))")
-        }
-        
-        LLog("------\(a.removeDuplication())");
         
         
     }
@@ -34,14 +23,7 @@ class KATRouterRootVC: UIViewController {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-   
-//        debugPrint("value: \(a.getValue(index: 0) ?? "--")");
-//          debugPrint("value: \(a.getValue(index: 1) ?? "--")");
-        
-        for i in 0...100{
-            a.put(value: "\(i)" as NSString);
-            debugPrint("----- \(a.getValue(index: i))")
-        }
+//        self.present(ViewController(), animated: false, completion: nil);
         
     }
 

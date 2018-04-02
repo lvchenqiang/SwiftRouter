@@ -34,7 +34,7 @@ extension UIImage {
             for dic:Dictionary<String,String> in imagesD as! Array{
                 let imageSize = CGSizeFromString(dic["UILaunchImageSize"]!);
                 if imageSize.equalTo(viewSize) && viewOrientation == dic["UILaunchImageOrientation"] {
-                    _lauchImage = UIImage(named:"UILaunchImageName");
+                    _lauchImage = UIImage(named:dic["UILaunchImageName"]!);
                 }
             }
             

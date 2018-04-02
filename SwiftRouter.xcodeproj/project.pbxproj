@@ -26,6 +26,9 @@
 		615BEABB2057594300B6AA46 /* KATNavTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BEABA2057594200B6AA46 /* KATNavTransition.swift */; };
 		61862DE02057600C0003CBE0 /* KATMacros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61862DDF2057600C0003CBE0 /* KATMacros.swift */; };
 		854E5E5F205B5C8900D2B2F4 /* KATRouterRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854E5E5E205B5C8900D2B2F4 /* KATRouterRootVC.swift */; };
+		854FB8DF20721DC900061F24 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 854FB8DE20721DC900061F24 /* Images.xcassets */; };
+		854FB8E12072238200061F24 /* String+Slices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854FB8E02072238200061F24 /* String+Slices.swift */; };
+		854FB8E42072285D00061F24 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854FB8E32072285D00061F24 /* NSObject+Extension.swift */; };
 		859035772063462900B61275 /* KATAppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859035762063462900B61275 /* KATAppUtil.swift */; };
 		859035792063B3F600B61275 /* KATSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859035782063B3F600B61275 /* KATSwizzle.swift */; };
 		8590357B2063B47900B61275 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8590357A2063B47900B61275 /* UIViewController+Extension.swift */; };
@@ -60,6 +63,9 @@
 		615BEABA2057594200B6AA46 /* KATNavTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATNavTransition.swift; sourceTree = "<group>"; };
 		61862DDF2057600C0003CBE0 /* KATMacros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATMacros.swift; sourceTree = "<group>"; };
 		854E5E5E205B5C8900D2B2F4 /* KATRouterRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATRouterRootVC.swift; sourceTree = "<group>"; };
+		854FB8DE20721DC900061F24 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		854FB8E02072238200061F24 /* String+Slices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Slices.swift"; sourceTree = "<group>"; };
+		854FB8E32072285D00061F24 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
 		859035762063462900B61275 /* KATAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATAppUtil.swift; sourceTree = "<group>"; };
 		859035782063B3F600B61275 /* KATSwizzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATSwizzle.swift; sourceTree = "<group>"; };
 		8590357A2063B47900B61275 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -88,6 +94,7 @@
 			children = (
 				6158D2F0206A882F001EBEC8 /* String+Extension.swift */,
 				6158D2FE206A8DE7001EBEC8 /* String+Validate.swift */,
+				854FB8E02072238200061F24 /* String+Slices.swift */,
 			);
 			path = "String+Extension";
 			sourceTree = "<group>";
@@ -170,6 +177,7 @@
 				615BEAA620566FAA00B6AA46 /* Assets.xcassets */,
 				615BEAA820566FAA00B6AA46 /* LaunchScreen.storyboard */,
 				615BEAAB20566FAA00B6AA46 /* Info.plist */,
+				854FB8DE20721DC900061F24 /* Images.xcassets */,
 			);
 			path = SwiftRouter;
 			sourceTree = "<group>";
@@ -186,6 +194,14 @@
 				854E5E5E205B5C8900D2B2F4 /* KATRouterRootVC.swift */,
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		854FB8E22072284500061F24 /* NSObject+Extension */ = {
+			isa = PBXGroup;
+			children = (
+				854FB8E32072285D00061F24 /* NSObject+Extension.swift */,
+			);
+			path = "NSObject+Extension";
 			sourceTree = "<group>";
 		};
 		856DC755205F498C00DB892B /* Struct */ = {
@@ -211,6 +227,7 @@
 		85BC79D5206A3E0800E7436D /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				854FB8E22072284500061F24 /* NSObject+Extension */,
 				85E79A9E206CF170007D378B /* UIView+BlockGesture */,
 				6158D303206A9067001EBEC8 /* UIView+Animation */,
 				6158D300206A8F30001EBEC8 /* UIScrollView+Extension */,
@@ -300,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				615BEAAA20566FAA00B6AA46 /* LaunchScreen.storyboard in Resources */,
+				854FB8DF20721DC900061F24 /* Images.xcassets in Resources */,
 				615BEAA720566FAA00B6AA46 /* Assets.xcassets in Resources */,
 				615BEAA520566FAA00B6AA46 /* Main.storyboard in Resources */,
 			);
@@ -313,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				859035772063462900B61275 /* KATAppUtil.swift in Sources */,
+				854FB8E12072238200061F24 /* String+Slices.swift in Sources */,
 				8590357D2064CE7000B61275 /* KATHashMap.swift in Sources */,
 				8590357B2063B47900B61275 /* UIViewController+Extension.swift in Sources */,
 				859035792063B3F600B61275 /* KATSwizzle.swift in Sources */,
@@ -338,6 +357,7 @@
 				854E5E5F205B5C8900D2B2F4 /* KATRouterRootVC.swift in Sources */,
 				859035AB2068EF6400B61275 /* KATAspects.swift in Sources */,
 				615BEABB2057594300B6AA46 /* KATNavTransition.swift in Sources */,
+				854FB8E42072285D00061F24 /* NSObject+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,9 +494,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V52PJZH3D9;
 				INFOPLIST_FILE = SwiftRouter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tensuns.SwiftRouter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -489,9 +511,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V52PJZH3D9;
 				INFOPLIST_FILE = SwiftRouter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tensuns.SwiftRouter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
