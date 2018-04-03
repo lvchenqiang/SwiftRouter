@@ -25,7 +25,7 @@ class ViewController: UIViewController {
 //        super.touchesBegan(touches, with: event);
         
         
-        self.present(SecondViewController(), animated: false, completion: nil);
+        KATRouter.route(to: "kSecondViewController");
         
         
         

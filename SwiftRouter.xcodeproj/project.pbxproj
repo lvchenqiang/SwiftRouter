@@ -29,6 +29,7 @@
 		854FB8DF20721DC900061F24 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 854FB8DE20721DC900061F24 /* Images.xcassets */; };
 		854FB8E12072238200061F24 /* String+Slices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854FB8E02072238200061F24 /* String+Slices.swift */; };
 		854FB8E42072285D00061F24 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854FB8E32072285D00061F24 /* NSObject+Extension.swift */; };
+		854FB8E62073110700061F24 /* KATURIParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854FB8E52073110700061F24 /* KATURIParser.swift */; };
 		859035772063462900B61275 /* KATAppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859035762063462900B61275 /* KATAppUtil.swift */; };
 		859035792063B3F600B61275 /* KATSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859035782063B3F600B61275 /* KATSwizzle.swift */; };
 		8590357B2063B47900B61275 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8590357A2063B47900B61275 /* UIViewController+Extension.swift */; };
@@ -66,6 +67,7 @@
 		854FB8DE20721DC900061F24 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		854FB8E02072238200061F24 /* String+Slices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Slices.swift"; sourceTree = "<group>"; };
 		854FB8E32072285D00061F24 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		854FB8E52073110700061F24 /* KATURIParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATURIParser.swift; sourceTree = "<group>"; };
 		859035762063462900B61275 /* KATAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATAppUtil.swift; sourceTree = "<group>"; };
 		859035782063B3F600B61275 /* KATSwizzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATSwizzle.swift; sourceTree = "<group>"; };
 		8590357A2063B47900B61275 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				856DC755205F498C00DB892B /* Struct */,
 				61862DDF2057600C0003CBE0 /* KATMacros.swift */,
 				615BEAB820567A1A00B6AA46 /* KATRouter.swift */,
+				854FB8E52073110700061F24 /* KATURIParser.swift */,
 				615BEABA2057594200B6AA46 /* KATNavTransition.swift */,
 				854E5E5E205B5C8900D2B2F4 /* KATRouterRootVC.swift */,
 			);
@@ -348,6 +351,7 @@
 				615BEAB62056720900B6AA46 /* APPController.swift in Sources */,
 				85A31C14206B3CA800D66CBF /* DKArray.swift in Sources */,
 				615BEAB920567A1A00B6AA46 /* KATRouter.swift in Sources */,
+				854FB8E62073110700061F24 /* KATURIParser.swift in Sources */,
 				61862DE02057600C0003CBE0 /* KATMacros.swift in Sources */,
 				85E79AA0206CF1A9007D378B /* UIView+BlockGesture.swift in Sources */,
 				85BC79D8206A3E5500E7436D /* UIImage+Extension.swift in Sources */,

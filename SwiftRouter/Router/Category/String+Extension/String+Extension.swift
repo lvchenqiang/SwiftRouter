@@ -79,3 +79,19 @@ extension String{
     
     
 }
+
+
+extension String{
+    
+    var currentClass:AnyClass? {
+        get{
+          
+            if  let appName: String = Bundle.main.infoDictionary!["CFBundleName"] as? String{
+                return NSClassFromString("\(appName).\(self)")
+            }
+            return nil;
+        }
+        
+    }
+    
+}

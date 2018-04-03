@@ -24,6 +24,7 @@ class KATRouterRootVC: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
 //        self.present(ViewController(), animated: false, completion: nil);
+        KATRouter.route(to: "kViewController");
         
     }
 

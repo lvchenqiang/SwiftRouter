@@ -23,7 +23,7 @@ typealias BaseBlockType = (_ elements: Any...) -> (Void)
 /// 主路由key
 fileprivate let  kRouterRootHost = "router_root_host";
 fileprivate let  kRouterQueueRouting = "dk_router_queue_routing";
-fileprivate let  kROUTER_ROUTING_TEST_INTERVAL = (0.05);
+fileprivate let  kROUTER_ROUTING_TEST_INTERVAL = (0.5);
 // MARK:定义路由的协议
 protocol KATRouterDelegate: NSObjectProtocol {
     // MARK:路由相关
@@ -84,10 +84,15 @@ class KATRouter: NSObject {
     fileprivate var valueMap = [String:NSDictionary]();
     
     /// 回退栈
-    fileprivate var backwardStack = [String:String]();
+    fileprivate var backwardStack = Array<String>();
+    
+    /// 即将显示的路由
+    fileprivate var showingHost = "";
      // MARK:视图层
     /// 根控制器
     fileprivate var rootVC = KATRouterRootVC();
+    /// 最顶层的vc
+    fileprivate var topVC:UIViewController?
     ///根VC背景图
     fileprivate var rootBg = UIImageView();
     /// 主窗口视图
@@ -97,10 +102,14 @@ class KATRouter: NSObject {
       var isDisabled = false;
      /// 路由是否暂停  默认可用
       var isWaitting = false;
-  
+    /// 是否加载完成 防止屏幕过早的旋转
+    var isLoaded = false;
+    /// 是否正在跳转
+    var isRouting = false;
     /// 路由最大等待时长
-    var routingWaitDuration:Double = 3.0;
-    
+    var routingWaitDuration:Double = 0.5;
+    ///外部跳转保护时间(防止外部跳转回来时横竖屏未及时切换的问题)
+    var routingProtectionDuration = 0.0;
     fileprivate let queueRouting = DispatchQueue(label: kRouterQueueRouting);
     
    // MARK:app 生命周期的回调
@@ -347,7 +356,7 @@ extension KATRouter{
         }
         
         if(uri.length > 0){
-            
+            self.route(to: uri, selector: nil, obj: nil, addition: nil, forward: true, handle: nil);
         }
         
         
@@ -355,10 +364,19 @@ extension KATRouter{
     /// 内部判断是否可以跳转
     fileprivate class func _routingAvailable() -> Bool{
         
+        let router = KATRouter.shareRouter;
+        var result = true;
+        DispatchQueue.main.sync {
+            if(router.topVC == nil){
+                result = true;
+            }
+            if(router.isDisabled || router.isWaitting || router.isRouting){
+                result = false;
+            }
+            
+        }
         
-        
-        
-        return false;
+        return result;
     }
     /// 内部路由的跳转
     ///
@@ -369,7 +387,7 @@ extension KATRouter{
     ///   - addition: 添加
     ///   - forward: 向前
     ///   - handle: 回调
-    fileprivate class func route(to uri:String, selector:Selector?, obj:Any?, addition:Any?, forward:Bool, handle:@escaping ()->(Void)){
+    fileprivate class func route(to uri:String, selector:Selector?, obj:Any?, addition:Any?, forward:Bool = true, handle:(()->(Void))?){
          let router = KATRouter.shareRouter;
         /// 异步执行
         router.queueRouting.async {
@@ -377,6 +395,7 @@ extension KATRouter{
             
                 while (waitDuration < router.routingWaitDuration){ ///
                     if(router.isDisabled){ /// 禁用跳转
+                        LLog("路由已禁用");
                         return ;
                     }
                     
@@ -390,12 +409,54 @@ extension KATRouter{
                     Thread.sleep(forTimeInterval: waitDuration);
                 }
             
-            if(KATRouter._routingAvailable()){/// 路由是否可用
-                
-                
+            if(!KATRouter._routingAvailable()){/// 路由是否可用
+                LLog("路由不可用");
+                return ;
             }
           
+            Delay_time(router.routingProtectionDuration, block: {
             
+                router.isLoaded = true; /// 正在加载中
+                
+                let topVC = router.topVC != nil ? router.topVC! : KATAppUtil.topViewController();
+                /// 跳转的实例
+                var vc = router.instanceMap[uri];
+              
+                if(vc == nil){ /// 不存在
+                    let clsName =  router.classNameMap[uri];
+                      LLog(clsName!.currentClass);
+                    if(clsName == nil){
+                        LLog("尚未注册的:\(uri)")
+                        return ;
+                    }else{ /// 新建实例
+                        let classtype = clsName!.currentClass! as! UIViewController.Type;
+                        vc =  classtype.init();
+                    }
+                }
+                
+
+                /// 判断路由是否允许回调
+//                if(topVC.conforms(to:protocol(KATRouterDelegate))){
+//
+//                }
+//
+                
+                LLog(topVC)
+                LLog(vc!);
+                topVC.present(vc!, animated: false, completion: {
+                    router.topVC = vc;
+                    LLog("跳转结束");
+                    if(forward){
+                        router.backwardStack.append(uri);
+                       
+                    }
+                });
+                
+                
+                
+                
+                
+            });
             
             
             
@@ -410,7 +471,15 @@ extension KATRouter{
             
         }
         
+       
         
+    }
+  
+    class func backward(query:String = "", addition:Any?, handle:(()->(Void)?)){
+        
+        let router = KATRouter.shareRouter
+        let uri = router.backwardStack.last!;
+        route(to: uri, selector: nil, obj: nil, addition: nil, forward: false, handle: nil);
         
     }
     
@@ -445,13 +514,13 @@ extension KATRouter{
     /// Present 视图
 
     
-    /// mark:此处其实没有必要做真正的替换
+    /// mark:此处其实没有必要做真正的替换 只需hook 跳转过程就行
 //      KATSwizzle.KATSwizzleMethod(originalCls: UIViewController.self, swizzleCls: KATRouter.self, originalSelector: #selector(UIViewController.present(_:animated:completion:)), swizzledSelector: #selector(present(_:animated:completion:)));
     hookPresentVC();
    
 
     
-    /// Dismiss 视图
+    /// Dismiss 视图 只需hook 跳转过程就行
     
 //     KATRouter.shareRouter._dissmissViewController = class_getMethodImplementation(UIViewController.self, #selector(UIViewController.dismiss(animated:completion:)));
     

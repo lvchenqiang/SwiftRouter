@@ -19,8 +19,8 @@ class APPController: UIResponder, UIApplicationDelegate {
     /// 加载完成
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-
-        KATRouter.shareRouter.isDisabled = true;
+        KATRouter.registeRouter(className: "ViewController", host: "kViewController");
+         KATRouter.registeRouter(className: "SecondViewController", host: "kSecondViewController");
 //        UIViewController.initializeOnceMethod();
     
         
