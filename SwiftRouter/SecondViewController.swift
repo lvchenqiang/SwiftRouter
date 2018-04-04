@@ -13,8 +13,44 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.red;
+        self.view.backgroundColor = UIColor.white;
         // Do any additional setup after loading the view.
+        
+        let btn = UIButton();
+        btn.frame = M_RECT(100, 100, 200, 40);
+        btn.backgroundColor = UIColor.red;
+        btn.addTapAction { (ges) -> (Void) in
+            
+            KATRouter.backward();
+            
+        }
+         btn.setTitle("2222222Second  backward", for: .normal);
+        self.view.addSubview(btn);
+        
+        
+        let btn2 = UIButton();
+        btn2.frame = M_RECT(100, 400, 200, 40);
+        btn2.backgroundColor = UIColor.blue;
+        btn2.addTapAction {(ges) -> (Void) in
+            
+//            KATRouter.routeMap(to: "kViewController");
+            let alertC = UIAlertController(title: "hehe", message: "-----", preferredStyle: .alert);
+            
+            let action1 = UIAlertAction(title: "1111", style: .cancel) { (action) in
+                
+            }
+            
+            let action2 = UIAlertAction(title: "2222", style: .default) { (action) in
+                
+            }
+            
+            alertC.addAction(action1);
+            alertC.addAction(action2);
+            self.present(alertC, animated: false, completion: nil);
+            
+        }
+        btn2.setTitle("2222222Second forward ", for: .normal);
+        self.view.addSubview(btn2);
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -22,7 +58,13 @@ class SecondViewController: UIViewController {
         
 //        self.dismiss(animated: false, completion: nil);
         
-        self.present(ViewController(), animated:false , completion: nil);
+//        KATRouter.route(to: "kViewController");
+
+        
+        
+        
+        
+        
         
     }
 

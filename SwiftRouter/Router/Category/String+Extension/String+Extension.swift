@@ -94,4 +94,10 @@ extension String{
         
     }
     
+    var selector:Selector {
+        get {
+            return Selector(self);
+        }
+    }
+    
 }

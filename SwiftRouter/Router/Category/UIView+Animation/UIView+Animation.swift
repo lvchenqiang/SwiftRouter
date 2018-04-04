@@ -10,7 +10,11 @@ import Foundation
 import UIKit
 
 
-extension UIView{
+protocol Shakeable:NSObjectProtocol {
+    
+}
+
+extension Shakeable where Self: UIView{
     
     //MARK:-移除所有的子视图
     func removeSubviews(){

@@ -16,16 +16,45 @@ class ViewController: UIViewController {
     
 //        KATRouter.shareRouter.topVC = self;
    
-        self.view.backgroundColor = UIColor.blue;
+        self.view.backgroundColor = UIColor.white;
         
      
+        let btn = UIButton();
+         btn.frame = M_RECT(100, 100, 200, 40);
+        btn.backgroundColor = UIColor.blue;
+        btn.addTapAction {(ges) -> (Void) in
+            
+          KATRouter.backward();
+            
+        }
+        btn.setTitle("111111View back ", for: .normal);
+        self.view.addSubview(btn);
+        
+        
+        
+        let btn2 = UIButton();
+        btn2.frame = M_RECT(100, 400, 200, 40);
+        btn2.backgroundColor = UIColor.blue;
+        btn2.addTapAction {(ges) -> (Void) in
+            
+            KATRouter.routeMap(to: "kSecondViewController");
+            
+        }
+        btn2.setTitle("111111View forward ", for: .normal);
+        self.view.addSubview(btn2);
+        
+        
+        
+        
+        
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        super.touchesBegan(touches, with: event);
         
+    
         
-        KATRouter.route(to: "kSecondViewController");
+     
         
         
         
