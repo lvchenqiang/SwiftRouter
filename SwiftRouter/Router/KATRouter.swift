@@ -13,7 +13,7 @@ enum KATRouterTransitionStyle:Int{
     case None = 0
     case Fade
     case MoveHorizontal
-    case Vertical
+    case MoveVertical
     case PushHorizontal
     case PushVertical
     case RevealHorizontal
@@ -483,7 +483,9 @@ extension KATRouter{
                 vc!.transitioningDelegate = router.navTransition;
                 vc!.modalPresentationStyle = .fullScreen;
                 
-                
+                if(topVC != vc!){
+                    router.window?.layer.add(transtionAnimation(style: .PushHorizontal, duration: 0.3, forward: forward)!, forKey: nil);
+                }
                 
                 LLog(topVC)
                 LLog(vc!);
@@ -715,14 +717,49 @@ extension KATRouter {
 // MARK:处理动画
 extension KATRouter {
     
-//    class func transtionAnimation(style:KATRouterTransitionStyle, duration:Double, forward:Bool) -> CATransition{
-//        switch style {
-//        case .None:
-//          return
-//        default:
-//            return
-//        }
-//    }
+   fileprivate class func transtionAnimation(style:KATRouterTransitionStyle, duration:Double, forward:Bool) -> CATransition?{
+        switch style {
+        case .None:
+            return nil;
+        case .Fade:
+            return KATSprite.transition(type: "fade", duration: duration, delay: 0);
+        case .MoveHorizontal:
+            return KATSprite.transition(type: "movein", subtype: forward ? kCATransitionFromRight:kCATransitionFromLeft, duration: duration, delay: 0);
+        case .MoveVertical:
+            return KATSprite.transition(type: "movein", subtype: forward ? kCATransitionFromTop:kCATransitionFromBottom, duration: duration, delay: 0);
+            
+        case .PushHorizontal:
+              return KATSprite.transition(type: "push", subtype: forward ? kCATransitionFromRight:kCATransitionFromLeft, duration: duration, delay: 0)
+        case .PushVertical:
+             return KATSprite.transition(type: "push", subtype: forward ? kCATransitionFromTop:kCATransitionFromBottom, duration: duration, delay: 0);
+        case .RevealHorizontal:
+             return KATSprite.transition(type: "reveal", subtype: forward ? kCATransitionFromRight:kCATransitionFromRight, duration: duration, delay: 0);
+        case .RevealVertical:
+              return KATSprite.transition(type: "reveal", subtype: forward ? kCATransitionFromTop:kCATransitionFromBottom, duration: duration, delay: 0);
+        case .CubeHorizontal:
+                return KATSprite.transition(type: "cube", subtype: forward ? kCATransitionFromRight:kCATransitionFromRight, duration: duration, delay: 0);
+        case .CubeVertical:
+             return KATSprite.transition(type: "cube", subtype: forward ? kCATransitionFromTop:kCATransitionFromBottom, duration: duration, delay: 0);
+        case .FlipHorizontal:
+            return KATSprite.transition(type: "oglFlip", subtype: forward ? kCATransitionFromRight:kCATransitionFromRight, duration: duration, delay: 0);
+        case .FlipVertical:
+              return KATSprite.transition(type: "oglFlip", subtype: forward ? kCATransitionFromTop:kCATransitionFromBottom, duration: duration, delay: 0);
+        case .Suck:
+            return KATSprite.transition(type: "suckEffect", duration: duration, delay: 0);
+        case .Ripple:
+            return KATSprite.transition(type: "rippleEffect", duration: duration, delay: 0);
+            
+        case .CurlLeft:
+            return KATSprite.transition(type: forward ? "pageCurl":"pageUnCurl", subtype: kCATransitionFromLeft, duration: duration, delay: 0);
+        case .CurlRight:
+          return KATSprite.transition(type: forward ? "pageCurl":"pageUnCurl", subtype: kCATransitionFromRight, duration: duration, delay: 0);
+        case .CurlBottom:
+            return KATSprite.transition(type:  forward ? "pageCurl":"pageUnCurl", subtype: kCATransitionFromBottom, duration: duration, delay: 0);
+            
+        default:
+            return nil;
+        }
+    }
     
     
 }
