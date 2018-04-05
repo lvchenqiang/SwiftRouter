@@ -29,6 +29,7 @@ extension String{
         }
     }
     
+ 
     /// 返回文本的高度
     ///
     /// - Parameters:
@@ -76,5 +77,27 @@ extension String{
         }
     }
     
+    
+}
+
+
+extension String{
+    
+    var currentClass:AnyClass? {
+        get{
+          
+            if  let appName: String = Bundle.main.infoDictionary!["CFBundleName"] as? String{
+                return NSClassFromString("\(appName).\(self)")
+            }
+            return nil;
+        }
+        
+    }
+    
+    var selector:Selector {
+        get {
+            return Selector(self);
+        }
+    }
     
 }

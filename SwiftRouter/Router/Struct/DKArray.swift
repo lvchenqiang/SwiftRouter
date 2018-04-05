@@ -286,7 +286,7 @@ extension DKArray {
 //        _member.deallocate(capacity: capacity);
 //    }
     
-    _member.initialize(to: value, count: capacity)
+        _member.initialize(repeating: value, count: capacity)
 
     }
 }

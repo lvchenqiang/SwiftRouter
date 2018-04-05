@@ -18,14 +18,12 @@ class APPController: UIResponder, UIApplicationDelegate {
   
     /// 加载完成
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+                UIViewController.initializeOnceMethod();
         // Override point for customization after application launch.
+        
+        KATRouter.registeRouter(className: "ViewController", host: "kViewController");
+        KATRouter.registeRouter(className: "SecondViewController", host: "kSecondViewController");
 
-        KATRouter.shareRouter.isDisabled = true;
-//        UIViewController.initializeOnceMethod();
-    
-        
-        
-      
         
         return true
     }
@@ -44,7 +42,7 @@ class APPController: UIResponder, UIApplicationDelegate {
     /// 应用将要进入前台
     func applicationWillEnterForeground(_ application: UIApplication) {
        
-        
+        LLog("应用进入前台");
     }
     
     /// 应用将要变为活跃
