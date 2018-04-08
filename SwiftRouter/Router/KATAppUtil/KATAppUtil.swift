@@ -18,7 +18,9 @@ class KATAppUtil: NSObject {
     }
     
     /// 切换屏幕的方向
-
+    class func setOrientation(orientation:UIDeviceOrientation){
+        UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
+    }
     
     
     /// 设置自动锁屏

@@ -8,14 +8,21 @@
 
 import UIKit
 
+
 class KATRouterRootVC: UIViewController {
     var a = DKArray<NSString>("");
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.yellow;
-
+        KATAppUtil.setOrientation(orientation: .portrait);
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        
+        KATAppUtil.setOrientation(orientation: .portrait);
+        
+    }
 
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -25,4 +32,7 @@ class KATRouterRootVC: UIViewController {
         
     }
 
+    
+   
+    
 }

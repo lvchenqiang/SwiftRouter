@@ -28,13 +28,17 @@ extension UIImage {
         }else{
             viewOrientation = "Portrait"
         }
+        viewOrientation = "Portrait"
         let imagesDictionary = Bundle.main.infoDictionary!["UILaunchImages"]
         if let imagesD = imagesDictionary {
-            
+        
             for dic:Dictionary<String,String> in imagesD as! Array{
                 let imageSize = CGSizeFromString(dic["UILaunchImageSize"]!);
-                if imageSize.equalTo(viewSize) && viewOrientation == dic["UILaunchImageOrientation"] {
+           
+                if (imageSize.equalTo(viewSize) || imageSize.equalTo(CGSize(width: viewSize.height, height: viewSize.width))) && viewOrientation == dic["UILaunchImageOrientation"] {
+                    LLog(UIImage(named:dic["UILaunchImageName"]!));
                     _lauchImage = UIImage(named:dic["UILaunchImageName"]!);
+                    break;
                 }
             }
             

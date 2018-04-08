@@ -206,7 +206,8 @@ class KATRouter: NSObject {
         hookAppDelegate();
         
        /// 处理跟视图
-        router.rootVC = KATRouterRootVC();
+      
+        router.rootVC = KATRouterRootVC()
         router.rootBg.frame = router.rootVC.view.bounds;
         router.rootBg.contentMode = .scaleAspectFill;
         router.rootBg.image = UIImage.launchImage();
