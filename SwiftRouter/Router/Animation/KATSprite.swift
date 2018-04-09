@@ -451,44 +451,139 @@ extension KATSprite{
     
     ///获取不透明度动画
     func  animationToOpacity(opacity:CGFloat, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CABasicAnimation{
+        /// 创建动画并指定属性值
         let animation = CABasicAnimation(keyPath: "opacity");
+        /// 设置动画属性初始值和结束值
+        animation.fromValue = self.layer.opacity;
+        animation.toValue = opacity;
         
+        
+        
+        /// 设置动画的其他属性
+        animation.duration = duration; ///动画时间
+        animation.repeatCount = repeatCount; /// 设置重复次数
+        animation.autoreverses = autoreverses /// 是否回到原来的位置
+        animation.beginTime = CACurrentMediaTime() + delay;
+        /// 动画时间模式
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        /// 设置携带值
+        animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)
+         animation.setValue(kSpriteModeOpacity, forKey: kSpriteKeyMode)
+        animation.setValue(opacity, forKey: kSpriteKeyOpacity);
         return animation;
     }
     
     
     /// 获取背景颜色动画
     func animationBgToColor(color:UIColor, duration:Double, repeatCount:Float, delay:Double) -> CABasicAnimation{
-        let animation = CABasicAnimation(keyPath: "");
+          //创建动画并指定动画属性
+        let animation = CABasicAnimation(keyPath: "backgroundColor");
+        /// 设置属性的初始值和结束值
+        animation.fromValue = self.backgroundColor;
+        animation.toValue = color;
         
+        /// 设置其他动画属性
+        animation.duration = duration; /// 动画时间
+        animation.repeatCount = repeatCount;
+        animation.beginTime = CACurrentMediaTime() + delay;
+        animation.autoreverses = false; /// 是否回到原来的位置
+        
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        /// 设置携带值
+        animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)// 类型
+        animation.setValue(kSpriteModeBgColor, forKey: kSpriteKeyMode) /// 模式
+        animation.setValue(color, forKey: kSpriteKeyBgColor);
         return animation;
     }
     
     /// 获取边线颜色动画
     func animationBorderToColor(color:UIColor, duration:Double, repeatCount:Float, delay:Double) -> CABasicAnimation{
-        let animation = CABasicAnimation(keyPath: "");
+        //创建动画并指定动画属性
+        let animation = CABasicAnimation(keyPath: "borderColor");
+        /// 设置动画属性初始值和结束值
+        animation.fromValue = UIColor(cgColor: self.layer.borderColor ?? UIColor.white.cgColor);
+        animation.toValue = color;
         
+        /// 设置其他动画属性
+        animation.duration = duration;
+        animation.repeatCount = repeatCount;
+        animation.autoreverses = false;
+        animation.beginTime = CACurrentMediaTime() + delay
+        
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        /// 设置携带值
+       animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType) /// 类型
+       animation.setValue(kSpriteModeBorderColor, forKey: kSpriteKeyMode) /// 模式
+        animation.setValue(color, forKey: kSpriteKeyBorderColor);/// 值
         return animation;
     }
     
     /// 获取边线宽动画
     func animationBorderToWidth(width:CGFloat, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CABasicAnimation{
-        let animation = CABasicAnimation(keyPath: "");
+        let animation = CABasicAnimation(keyPath: "borderWidth");
         
+        /// 设置动画属性初始值和结束值
+        animation.fromValue = self.layer.borderWidth;
+        animation.toValue = width;
+        
+        /// 设置其他动画的属性
+        animation.duration = duration;
+        animation.repeatCount = repeatCount;
+        animation.autoreverses = false;
+        animation.beginTime = CACurrentMediaTime() + delay;
+        
+        
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode);
+        /// 设置携带值
+       animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)
+        animation.setValue(kSpriteModeBorderWidth, forKey: kSpriteKeyMode)
+        animation.setValue(width, forKey: kSpriteKeyBorderWidth)
         return animation;
     }
     
     ///获取圆角半径动画
     func animationCornerToRadius(radius:CGFloat, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: "");
+        let animation = CABasicAnimation(keyPath: "cornerRadius");
         
+        /// 设置动画属性的初始值和结束值
+        animation.duration =  duration;
+        animation.repeatCount = repeatCount;
+        animation.autoreverses = false;
+        animation.beginTime = CACurrentMediaTime() + delay;
+        
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        /// 设置携带值
+        animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)
+        animation.setValue(kSpriteModeCornerRadius, forKey: kSpriteKeyMode)
+        animation.setValue(radius, forKey: kSpriteKeyCornerRadius);
         return animation;
     }
     
     ///获取X轴旋转动画
     func animationRotationXToAngle(angle:CGFloat, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CABasicAnimation{
-        let animation = CABasicAnimation(keyPath: "");
+        let animation = CABasicAnimation(keyPath: "transform.rotation.x");
         
+        /// 设置动画的属性值和结束值
+        animation.fromValue = self.angleX;
+        animation.toValue = angle;
+        
+        /// 设置其他动画属性
+        animation.duration = duration;
+        animation.repeatCount = repeatCount;
+        animation.autoreverses = false
+        animation.beginTime = CACurrentMediaTime() + delay;
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        /// 设置携带值
+        animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)
+        animation.setValue(kSpriteModeRotationX, forKey: kSpriteKeyMode)
+        animation.setValue(angle, forKey: kSpriteKeyRotationX);
+        animation.setValue(NSValue.init(caTransform3D: CATransform3DRotate(self.layer.transform,angle-self.angleX, 1.0, 0.0, 0.0)), forKey: kSpriteKey3DTransform);
+           
         return animation;
     }
     
