@@ -583,57 +583,212 @@ extension KATSprite{
         animation.setValue(kSpriteModeRotationX, forKey: kSpriteKeyMode)
         animation.setValue(angle, forKey: kSpriteKeyRotationX);
         animation.setValue(NSValue.init(caTransform3D: CATransform3DRotate(self.layer.transform,angle-self.angleX, 1.0, 0.0, 0.0)), forKey: kSpriteKey3DTransform);
-           
+        
         return animation;
     }
     
     ///获取Y轴旋转动画
     func animationRotationYToAngle(angle:CGFloat, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CABasicAnimation{
-        let animation = CABasicAnimation(keyPath: "");
+        let animation = CABasicAnimation(keyPath: "transform.rotation.y");
         
+        
+        /// 设置动画属性初始值和结束值
+        animation.fromValue = self.angleY;
+        animation.toValue = angle;
+        
+        
+        /// 设置动画的其他属性
+        animation.duration = duration;
+        animation.repeatCount = repeatCount;
+        animation.autoreverses = false;
+        animation.beginTime = CACurrentMediaTime() + delay;
+        animation.timingFunction =  CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        /// 设置携带值
+       animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)
+        animation.setValue(kSpriteModeRotationY, forKey: kSpriteKeyMode)
+        animation.setValue(angle, forKey: kSpriteKeyRotationY)
+        animation.setValue(NSValue.init(caTransform3D: CATransform3DRotate(self.layer.transform,angle-self.angleY, 0.0, 1.0, 0.0)), forKey: kSpriteKey3DTransform)
         return animation;
     }
     
     /// 获取Z轴旋转动画
     func animationRotationZToAngle(angle:CGFloat, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: "");
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z");
         
+        
+        /// 设置动画属性初始值和结束值
+        animation.fromValue = self.angleZ;
+        animation.toValue = angle;
+        
+        
+        /// 设置动画的其他属性
+        animation.duration = duration;
+        animation.repeatCount = repeatCount;
+        animation.autoreverses = false;
+        animation.beginTime = CACurrentMediaTime() + delay;
+        animation.timingFunction =  CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        /// 设置携带值
+        animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)
+        animation.setValue(kSpriteModeRotationZ, forKey: kSpriteKeyMode)
+        animation.setValue(angle, forKey: kSpriteKeyRotationZ)
+        animation.setValue(NSValue.init(caTransform3D: CATransform3DRotate(self.layer.transform,angle-self.angleZ, 0.0, 0.0, 1.0)), forKey: kSpriteKey3DTransform)
         return animation;
     }
     
     
     ///获取X轴缩放动画
     func  animationScaleXToSize(size:CGFloat, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CABasicAnimation{
-        let animation = CABasicAnimation(keyPath: "");
+        /// 设置动画并制定动画属性
+        let animation = CABasicAnimation(keyPath: "transform.scale.x");
         
+        /// 设置动画属性初始值和结束值
+        animation.fromValue = self.sizeX;
+        animation.toValue = size;
+        
+        
+        /// 设置其他动画属性
+        animation.duration = duration;
+        animation.repeatCount = repeatCount;
+        
+        animation.autoreverses = false;
+        animation.beginTime = CACurrentMediaTime() + delay;
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        
+        /// 携带值
+        animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)
+        animation.setValue(kSpriteModeScaleX, forKey: kSpriteKeyMode);
+        animation.setValue(size, forKey: kSpriteKeyScaleX);
+        
+        if(self.sizeX != 0){
+          animation.setValue(NSValue.init(caTransform3D: CATransform3DRotate(self.layer.transform,size/self.sizeX, 0.0, 0.0, 1.0)), forKey: kSpriteKey3DTransform)
+        }else{
+               animation.setValue(NSValue.init(caTransform3D: CATransform3DScale(self.layer.transform, size/self.sizeX, 1.0, 1.0)), forKey: kSpriteKey3DTransform)
+        }
         return animation;
     }
     
     ///获取Y轴缩放动画
     func animationScaleYToSize(size:CGFloat, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CABasicAnimation{
-        let animation = CABasicAnimation(keyPath: "");
+        let animation = CABasicAnimation(keyPath: "transform.scale.y");
+        
+        /// 设置动画属性初始值和结束值
+        animation.fromValue = self.sizeY;
+        animation.toValue = size;
+        
+        
+        /// 设置其他动画属性
+        animation.duration = duration;
+        animation.repeatCount = repeatCount;
+        
+        animation.autoreverses = false;
+        animation.beginTime = CACurrentMediaTime() + delay;
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        
+        /// 携带值
+        animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)
+        animation.setValue(kSpriteModeScaleY, forKey: kSpriteKeyMode);
+        animation.setValue(size, forKey: kSpriteKeyScaleY);
+        
+        if(self.sizeY != 0){
+            animation.setValue(NSValue.init(caTransform3D: CATransform3DScale(self.layer.transform, 1.0, size/self.sizeY, 1.0)), forKey: kSpriteKey3DTransform)
+        }else{
+            animation.setValue(NSValue.init(caTransform3D: CATransform3DScale(self.layer.transform,1.0, size/self.sizeY, 1.0)), forKey: kSpriteKey3DTransform)
+        }
+        
+        
         
         return animation;
     }
     
     ///获取Z轴(2D关系没有效果)缩放动画
     func animationScaleZToSize(size:CGFloat, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: "");
+
+        let animation = CABasicAnimation(keyPath: "transform.scale.z");
+        
+        /// 设置动画属性初始值和结束值
+        animation.fromValue = self.sizeZ;
+        animation.toValue = size;
+        
+        
+        /// 设置其他动画属性
+        animation.duration = duration;
+        animation.repeatCount = repeatCount;
+        
+        animation.autoreverses = false;
+        animation.beginTime = CACurrentMediaTime() + delay;
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        
+        /// 携带值
+        animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)
+        animation.setValue(kSpriteModeScaleZ, forKey: kSpriteKeyMode);
+        animation.setValue(size, forKey: kSpriteKeyScaleZ);
+        
+        if(self.sizeZ != 0){
+            animation.setValue(NSValue.init(caTransform3D: CATransform3DScale(self.layer.transform, 1.0, 1.0, size/self.sizeZ)), forKey: kSpriteKey3DTransform)
+        }else{
+            animation.setValue(NSValue.init(caTransform3D: CATransform3DScale(self.layer.transform,1.0, 1.0, size/self.sizeZ)), forKey: kSpriteKey3DTransform)
+        }
         
         return animation;
     }
     
     ///获取XY轴(等比例)缩放动画
     func animationScaleXYToSize(size:CGFloat, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CABasicAnimation{
-        let animation = CABasicAnimation(keyPath: "");
+        let animation = CABasicAnimation(keyPath: "transform.scale");
+        
+        ///设置动画初始值和结束值
+        animation.fromValue = self.sizeXY;
+        animation.toValue = size;
+        
+        /// 设置动画属性
+        animation.duration = duration;
+        animation.repeatCount = repeatCount;
+        
+        animation.autoreverses = autoreverses;
+        animation.beginTime = CACurrentMediaTime() + delay;
+        
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode);
+        
+        /// 设置携带值
+        
+        animation.setValue(kSpriteTypeBasic, forKey: kSpriteKeyType)
+        animation.setValue(kSpriteModeScaleXY, forKey: kSpriteKeyMode)
+        animation.setValue(size, forKey: kSpriteKeyScaleXY);
+        if(self.sizeXY != 0){
+            animation.setValue(NSValue.init(caTransform3D: CATransform3DScale(self.layer.transform, size/self.sizeXY*self.sizeX/self.sizeXY, size/self.sizeXY*self.sizeY/self.sizeXY, 1.0)), forKey: kSpriteKey3DTransform);
+        }else{
+               animation.setValue(NSValue.init(caTransform3D: CATransform3DScale(self.layer.transform, size, size, 1.0)), forKey: kSpriteKey3DTransform);
+        }
         
         return animation;
     }
     
     ///获取路径动画(特殊的位移关键帧动画，优先级高于位移关键帧)
     func animationWithPath(path:UIBezierPath, duration:Double, repeatCount:Float, autoreverses:Bool, delay:Double) -> CAKeyframeAnimation{
-        let animation = CAKeyframeAnimation(keyPath: "");
         
+        //创建关键帧动画并设置动画属性
+        let animation = CAKeyframeAnimation(keyPath: "position");
+        animation.path = path.cgPath;
+        
+        /// 设置其他动画属性
+        animation.duration = duration;
+        animation.repeatCount = repeatCount;
+        animation.autoreverses = false;
+        animation.beginTime = CACurrentMediaTime() + delay; /// 延迟时间
+        animation.calculationMode = self.animationCalculationMode;///计算模式
+        animation.fillMode = self.animationFillMode; /// 填充模式
+        animation.rotationMode = self.animationRotateMode;/// 旋转模式
+        
+        animation.timingFunction = CAMediaTimingFunction(name: self.animationTimingMode)
+        /// 设置携带值
+        animation.setValue(kSpriteTypePath, forKey: kSpriteKeyType);
+        animation.setValue(kSpriteModePosition, forKey: kSpriteKeyMode)
+        animation.setValue(NSValue.init(cgPoint: path.currentPoint), forKey: kSpriteKeyPosition);
         return animation;
 
     }
