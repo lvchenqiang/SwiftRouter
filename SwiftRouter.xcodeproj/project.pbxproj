@@ -41,6 +41,7 @@
 		85A77B262074D69400CC2DB5 /* KATSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A77B252074D69400CC2DB5 /* KATSprite.swift */; };
 		85BC79D8206A3E5500E7436D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BC79D7206A3E5500E7436D /* UIImage+Extension.swift */; };
 		85E79AA0206CF1A9007D378B /* UIView+BlockGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E79A9F206CF1A9007D378B /* UIView+BlockGesture.swift */; };
+		85F7F82D207E0BDD00113995 /* IPA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85F7F82C207E0BDD00113995 /* IPA.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		85A77B252074D69400CC2DB5 /* KATSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATSprite.swift; sourceTree = "<group>"; };
 		85BC79D7206A3E5500E7436D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		85E79A9F206CF1A9007D378B /* UIView+BlockGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+BlockGesture.swift"; sourceTree = "<group>"; };
+		85F7F82C207E0BDD00113995 /* IPA.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = IPA.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 				8590357E20650E3900B61275 /* SecondViewController.swift */,
 				8590357A2063B47900B61275 /* UIViewController+Extension.swift */,
 				615BEAB32056702900B6AA46 /* main.swift */,
+				85F7F82C207E0BDD00113995 /* IPA.plist */,
 				615BEAB52056720900B6AA46 /* APPController.swift */,
 				615BEAA320566FAA00B6AA46 /* Main.storyboard */,
 				615BEAA620566FAA00B6AA46 /* Assets.xcassets */,
@@ -333,6 +336,7 @@
 				615BEAAA20566FAA00B6AA46 /* LaunchScreen.storyboard in Resources */,
 				854FB8DF20721DC900061F24 /* Images.xcassets in Resources */,
 				615BEAA720566FAA00B6AA46 /* Assets.xcassets in Resources */,
+				85F7F82D207E0BDD00113995 /* IPA.plist in Resources */,
 				615BEAA520566FAA00B6AA46 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,13 +515,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V52PJZH3D9;
+				DEVELOPMENT_TEAM = 9WX39V6Z4U;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = SwiftRouter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tensuns.SwiftRouter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.diandu.SwiftRouter1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -528,13 +535,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V52PJZH3D9;
+				DEVELOPMENT_TEAM = 9WX39V6Z4U;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = SwiftRouter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tensuns.SwiftRouter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.diandu.SwiftRouter1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
