@@ -52,30 +52,7 @@ class KATSwizzle : NSObject {
         }
         
     }
-    
-    
-    /// hook传入的函数 并自定义回调
-    ///
-    /// - Parameters:
-    ///   - originalCls: 类对象
-    ///   - selector: 需要被hook的函数
-    ///   - callback: 回调函数
-    class func hookFunc<T>(originalCls:AnyClass, selector: Selector, callback:T){
-        
-        
      
-        
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
 }

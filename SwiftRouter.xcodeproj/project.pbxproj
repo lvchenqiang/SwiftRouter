@@ -25,6 +25,7 @@
 		615BEAB920567A1A00B6AA46 /* KATRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BEAB820567A1A00B6AA46 /* KATRouter.swift */; };
 		615BEABB2057594300B6AA46 /* KATNavTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BEABA2057594200B6AA46 /* KATNavTransition.swift */; };
 		61862DE02057600C0003CBE0 /* KATMacros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61862DDF2057600C0003CBE0 /* KATMacros.swift */; };
+		851DF127208471DF00BAA87C /* KATMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DF126208471DF00BAA87C /* KATMath.swift */; };
 		854E5E5F205B5C8900D2B2F4 /* KATRouterRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854E5E5E205B5C8900D2B2F4 /* KATRouterRootVC.swift */; };
 		854FB8DF20721DC900061F24 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 854FB8DE20721DC900061F24 /* Images.xcassets */; };
 		854FB8E12072238200061F24 /* String+Slices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854FB8E02072238200061F24 /* String+Slices.swift */; };
@@ -41,7 +42,6 @@
 		85A77B262074D69400CC2DB5 /* KATSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A77B252074D69400CC2DB5 /* KATSprite.swift */; };
 		85BC79D8206A3E5500E7436D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BC79D7206A3E5500E7436D /* UIImage+Extension.swift */; };
 		85E79AA0206CF1A9007D378B /* UIView+BlockGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E79A9F206CF1A9007D378B /* UIView+BlockGesture.swift */; };
-		85F7F82D207E0BDD00113995 /* IPA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85F7F82C207E0BDD00113995 /* IPA.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +65,7 @@
 		615BEAB820567A1A00B6AA46 /* KATRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATRouter.swift; sourceTree = "<group>"; };
 		615BEABA2057594200B6AA46 /* KATNavTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATNavTransition.swift; sourceTree = "<group>"; };
 		61862DDF2057600C0003CBE0 /* KATMacros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATMacros.swift; sourceTree = "<group>"; };
+		851DF126208471DF00BAA87C /* KATMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATMath.swift; sourceTree = "<group>"; };
 		854E5E5E205B5C8900D2B2F4 /* KATRouterRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATRouterRootVC.swift; sourceTree = "<group>"; };
 		854FB8DE20721DC900061F24 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		854FB8E02072238200061F24 /* String+Slices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Slices.swift"; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		85A77B252074D69400CC2DB5 /* KATSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KATSprite.swift; sourceTree = "<group>"; };
 		85BC79D7206A3E5500E7436D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		85E79A9F206CF1A9007D378B /* UIView+BlockGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+BlockGesture.swift"; sourceTree = "<group>"; };
-		85F7F82C207E0BDD00113995 /* IPA.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = IPA.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,7 +178,6 @@
 				8590357E20650E3900B61275 /* SecondViewController.swift */,
 				8590357A2063B47900B61275 /* UIViewController+Extension.swift */,
 				615BEAB32056702900B6AA46 /* main.swift */,
-				85F7F82C207E0BDD00113995 /* IPA.plist */,
 				615BEAB52056720900B6AA46 /* APPController.swift */,
 				615BEAA320566FAA00B6AA46 /* Main.storyboard */,
 				615BEAA620566FAA00B6AA46 /* Assets.xcassets */,
@@ -226,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				859035762063462900B61275 /* KATAppUtil.swift */,
+				851DF126208471DF00BAA87C /* KATMath.swift */,
 				859035782063B3F600B61275 /* KATSwizzle.swift */,
 				859035A52068C81600B61275 /* KATLock.swift */,
 				859035AA2068EF6400B61275 /* KATAspects.swift */,
@@ -336,7 +336,6 @@
 				615BEAAA20566FAA00B6AA46 /* LaunchScreen.storyboard in Resources */,
 				854FB8DF20721DC900061F24 /* Images.xcassets in Resources */,
 				615BEAA720566FAA00B6AA46 /* Assets.xcassets in Resources */,
-				85F7F82D207E0BDD00113995 /* IPA.plist in Resources */,
 				615BEAA520566FAA00B6AA46 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,6 +356,7 @@
 				6158D305206A907E001EBEC8 /* UIView+Animation.swift in Sources */,
 				6158D302206A8F3B001EBEC8 /* UIScrollView+Extension.swift in Sources */,
 				6158D2FA206A8A11001EBEC8 /* UITextField+Extension.swift in Sources */,
+				851DF127208471DF00BAA87C /* KATMath.swift in Sources */,
 				6158D2F4206A895F001EBEC8 /* UIButton+Extension.swift in Sources */,
 				615BEAA020566FAA00B6AA46 /* AppDelegate.swift in Sources */,
 				8590357F20650E3900B61275 /* SecondViewController.swift in Sources */,

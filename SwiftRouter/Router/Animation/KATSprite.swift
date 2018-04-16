@@ -366,7 +366,7 @@ class KATSprite:UIView  {
     ///kCAMediaTimingFunctionEaseIn(加速)
     ///kCAMediaTimingFunctionEaseOut(减速)
     ///kCAMediaTimingFunctionEaseInEaseOut(先加速后减速)
-    var animationTimingMode = "kCAMediaTimingFunctionDefault"
+    var animationTimingMode = "default"
     
     
     //////系统刷屏定时器 每秒60帧
@@ -1170,10 +1170,13 @@ extension KATSprite{
         animation.beginTime = CACurrentMediaTime() + delay; /// 设置开始的时间
         animation.setValue(name, forKey: kSpriteKeyName);
         if(!self.animating){/// 当前没有动画在执行
-            let mode = animation.value(forKey: kSpriteKeyMode) as! String;
-            if(mode == kSpriteModePosition){ /// 包含位移动画，则在动画中取消交互
-                self.interactInAnimating = false;
+//            let mode = animation.value(forKey: kSpriteKeyMode) as! String;
+            if let mode = animation.value(forKey: kSpriteKeyMode){
+                if((mode as! String)  == kSpriteModePosition){ /// 包含位移动画，则在动画中取消交互
+                    self.interactInAnimating = false;
+                }
             }
+            
             self.animating = true;
             self.layer.add(animation, forKey: name);
             
@@ -1410,6 +1413,417 @@ extension KATSprite{
 }
 
 
+// MARK: 动画变形
+extension KATSprite{
+
+    ///旋转(相对初始值)
+    func transformRotateToAngle(angle:CGFloat){
+        self.layer.transform = CATransform3DRotate(CATransform3DIdentity, angle, 0.0, 0.0, 1.0);
+        
+        // 保存变换角度
+        self.angleX = self.layer.value(forKey:"transform.rotation.x") as! CGFloat
+        self.angleY = self.layer.value(forKey: "transform.rotation.y") as! CGFloat
+        self.angleZ = self.layer.value(forKey: "transform.rotation.z") as! CGFloat
+        
+        /// 保存变换的尺寸
+        self.sizeX = self.layer.value(forKey: "transform.scale.x") as! CGFloat;
+        self.sizeY = self.layer.value(forKey: "transform.scale.y") as! CGFloat;
+        self.sizeZ = self.layer.value(forKey: "transform.scale.z") as! CGFloat;
+        self.sizeXY = (self.sizeX+self.sizeY)/2.0;
+        
+        
+    }
+    ///旋转X轴（上下转）
+    func transformRotateXToAngle(angle:CGFloat){
+        var transform = CATransform3DIdentity;
+        transform.m34 = self.perspective; /// 透视点
+        self.layer.transform = CATransform3DRotate(transform, angle, 1.0, 0.0, 0.0)
+        
+        // 保存变换角度
+        self.angleX = self.layer.value(forKey:"transform.rotation.x") as! CGFloat
+        self.angleY = self.layer.value(forKey: "transform.rotation.y") as! CGFloat
+        self.angleZ = self.layer.value(forKey: "transform.rotation.z") as! CGFloat
+        
+        /// 保存变换的尺寸
+        self.sizeX = self.layer.value(forKey: "transform.scale.x") as! CGFloat;
+        self.sizeY = self.layer.value(forKey: "transform.scale.y") as! CGFloat;
+        self.sizeZ = self.layer.value(forKey: "transform.scale.z") as! CGFloat;
+        self.sizeXY = (self.sizeX+self.sizeY)/2.0;
+        
+        
+    }
+    
+    ///旋转Y轴（左右转）
+    func transformRotateYToAngle(angle:CGFloat){
+        
+        var transform = CATransform3DIdentity;
+        transform.m34 = self.perspective; /// 透视点
+        self.layer.transform = CATransform3DRotate(transform, angle, 0.0, 1.0, 0.0)
+        
+        // 保存变换角度
+        self.angleX = self.layer.value(forKey:"transform.rotation.x") as! CGFloat
+        self.angleY = self.layer.value(forKey: "transform.rotation.y") as! CGFloat
+        self.angleZ = self.layer.value(forKey: "transform.rotation.z") as! CGFloat
+        
+        /// 保存变换的尺寸
+        self.sizeX = self.layer.value(forKey: "transform.scale.x") as! CGFloat;
+        self.sizeY = self.layer.value(forKey: "transform.scale.y") as! CGFloat;
+        self.sizeZ = self.layer.value(forKey: "transform.scale.z") as! CGFloat;
+        self.sizeXY = (self.sizeX+self.sizeY)/2.0;
+        
+        
+    }
+    
+    ///水平镜像(相对初始值)
+    func transformHorizontalMirror(){
+        
+        self.layer.transform = CATransform3DRotate(CATransform3DIdentity, CGFloat(Double.pi), 1.0, 0.0, 0.0);
+        // 保存变换角度
+        self.angleX = self.layer.value(forKey:"transform.rotation.x") as! CGFloat
+        self.angleY = self.layer.value(forKey: "transform.rotation.y") as! CGFloat
+        self.angleZ = self.layer.value(forKey: "transform.rotation.z") as! CGFloat
+        
+        /// 保存变换的尺寸
+        self.sizeX = self.layer.value(forKey: "transform.scale.x") as! CGFloat;
+        self.sizeY = self.layer.value(forKey: "transform.scale.y") as! CGFloat;
+        self.sizeZ = self.layer.value(forKey: "transform.scale.z") as! CGFloat;
+        self.sizeXY = (self.sizeX+self.sizeY)/2.0;
+        
+        
+        
+    }
+    
+    /// 垂直镜像(相对初始值)
+    func transformVerticalMirror(){
+        self.layer.transform = CATransform3DRotate(CATransform3DIdentity, CGFloat(Double.pi), 0.0, 1.0, 0.0);
+        // 保存变换角度
+        self.angleX = self.layer.value(forKey:"transform.rotation.x") as! CGFloat
+        self.angleY = self.layer.value(forKey: "transform.rotation.y") as! CGFloat
+        self.angleZ = self.layer.value(forKey: "transform.rotation.z") as! CGFloat
+        
+        /// 保存变换的尺寸
+        self.sizeX = self.layer.value(forKey: "transform.scale.x") as! CGFloat;
+        self.sizeY = self.layer.value(forKey: "transform.scale.y") as! CGFloat;
+        self.sizeZ = self.layer.value(forKey: "transform.scale.z") as! CGFloat;
+        self.sizeXY = (self.sizeX+self.sizeY)/2.0;
+    }
+    
+    ///缩放(相对初始值)(宽高,比例,1为原始值)
+    func transformScaleToWitdh(width:CGFloat, height:CGFloat){
+        self.layer.transform = CATransform3DScale(CATransform3DIdentity, width, height, 1.0);
+        
+        
+        // 保存变换角度
+        self.angleX = self.layer.value(forKey:"transform.rotation.x") as! CGFloat
+        self.angleY = self.layer.value(forKey: "transform.rotation.y") as! CGFloat
+        self.angleZ = self.layer.value(forKey: "transform.rotation.z") as! CGFloat
+        
+        /// 保存变换的尺寸
+        self.sizeX = self.layer.value(forKey: "transform.scale.x") as! CGFloat;
+        self.sizeY = self.layer.value(forKey: "transform.scale.y") as! CGFloat;
+        self.sizeZ = self.layer.value(forKey: "transform.scale.z") as! CGFloat;
+        self.sizeXY = (self.sizeX+self.sizeY)/2.0;
+        
+        
+        
+    }
+    
+    ///复位
+    func restoreSprite(){
+        self.stopAnimation();
+        self.layer.transform = CATransform3DIdentity;
+        self.sizeX = 1.0
+        self.sizeY = 1.0
+        self.sizeZ = 1.0
+        self.sizeXY = 1.0
+        
+        self.angleX = 0.0
+        self.angleY = 0.0
+        self.angleZ = 0.0
+        
+        self.layer.opacity = 1.0
+        
+        if(self.contents != nil){
+            self.layer.contents = contents?.cgImage;
+        }
+        
+        
+        
+        
+        
+    }
+    
+    ///内容调整尺寸
+    func resizeForContents(){
+        
+        
+    }
+    
+    
+    
+    // MARK:-常用动画
+    ///心跳(等比缩放)(参数小于0则用默认值)
+    func heartbeatWithScale(scale:CGFloat, duration:Double,repeatCount:Float){
+        
+        self.startAnimation(animation: self.animationScaleXToSize(size: scale < 0 ? 1.16:scale, duration: duration < 0 ? 0.6:duration, repeatCount: repeatCount, autoreverses: true, delay: 0.0), name: kSpriteAnimationHeartbeat, delay: 0.0);
+        
+        
+    }
+    
+    ///闪烁(透明变化)(参数小于0则用默认值)
+    func  blinkWithAlpha(alpha:CGFloat, duration:Double, repeatCount:Float) {
+        
+        self.startAnimation(animation: self.animationToOpacity(opacity: alpha<0 ? 0.2 : alpha, duration: duration < 0.3 ? 0.3:duration, repeatCount: repeatCount, autoreverses: true, delay: 0.0), name: kSpriteAnimationBlink, delay: 0);
+    }
+    
+    ///转动(Z轴旋转)(参数小于0则用默认值)
+    func rotateWithDuration(duration:Double, repeatCount:Float, clockwise:Bool){
+        self.animationTimingMode = kCAMediaTimingFunctionLinear
+        self.startAnimation(animation: self.animationRotationZToAngle(angle: clockwise ? (self.angleZ + CGFloat.pi * 2) : (self.angleZ - CGFloat.pi * 2), duration: duration, repeatCount: repeatCount, autoreverses: false, delay: 0.0), name: kSpriteAnimationRotate, delay: 0)
+    }
+    
+    ///翻转(XY轴旋转)(参数小于0则用默认值)
+    func flipWithDuration(duration:Double, repeatCount:Float, clockwise:Bool, vertical:Bool){
+         self.animationTimingMode=kCAMediaTimingFunctionLinear;
+        if(vertical){
+            startAnimation(animation: self.animationRotationXToAngle(angle: clockwise ? (self.angleZ + CGFloat.pi * 2) : (self.angleZ - CGFloat.pi * 2), duration: duration, repeatCount: repeatCount, autoreverses: false, delay: 0.0), name: kSpriteAnimationRotate, delay: 0.0)
+        }else{
+             startAnimation(animation: self.animationRotationYToAngle(angle: clockwise ? (self.angleZ + CGFloat.pi * 2) : (self.angleZ - CGFloat.pi * 2), duration: duration, repeatCount: repeatCount, autoreverses: false, delay: 0.0), name: kSpriteAnimationRotate, delay: 0.0)
+            
+        }
+        
+    }
+    
+    /// 摇晃(左右)(参数小于0则用默认值)
+    func shakeWithDegree(degree:CGFloat, duration:Double, repeatCount:Float){
+        
+        let  keyValues = [CGPoint(x: self.layer.position.x - degree, y: self.layer.position.y), self.layer.position, CGPoint(x: self.layer.position.x + degree, y: self.layer.position.y), self.layer.position];
+        
+        let keyTimes = [0.25,0.5,0.75, 1.0];
+        
+        self.startAnimation(animation: self.animationWithMode(mode: .POSITION, keyValues: keyValues as NSArray, keyTimes: keyTimes as [NSNumber], duration: duration, repeatCount: repeatCount, autoreverses: false, delay: 0.0), name: kSpriteAnimationShake, delay: 0)
+        
+        
+    }
+    
+    //////震动(上下)(参数小于0则用默认值)
+    func shockWithDegree(degree:CGFloat, duration:Double, repeatCount:Float){
+        
+        
+        
+        let  keyValues = [CGPoint(x: self.layer.position.x , y: self.layer.position.y - degree ), self.layer.position, CGPoint(x: self.layer.position.x , y: self.layer.position.y + degree), self.layer.position];
+        
+        let keyTimes = [0.25,0.5,0.75, 1.0];
+        
+        self.startAnimation(animation: self.animationWithMode(mode: .POSITION, keyValues: keyValues as NSArray, keyTimes: keyTimes as [NSNumber], duration: duration, repeatCount: repeatCount, autoreverses: false, delay: 0.0), name: kSpriteAnimationShock, delay: 0)
+        
+        
+        
+    }
+    
+    ///抖动(旋转)(参数小于0则用默认值)
+    func ditherWithDegree(degree:CGFloat = 2.0, duration:Double = 0.1, repeatCount:Float){
+        
+        let  keyValues = [self.angleZ - CGFloat.pi/180.0 * degree, self.angleZ, self.angleZ + CGFloat.pi/180.0 * degree, self.angleZ];
+    
+        let keyTimes = [0.25,0.5,0.75, 1.0];
+        
+        startAnimation(animation: animationWithMode(mode: .ROTATION_Z, keyValues: keyValues as NSArray, keyTimes: keyTimes as [NSNumber], duration: duration, repeatCount: repeatCount, autoreverses: false, delay: 0.0), name: kSpriteAnimationDither, delay: 0.0)
+    
+    }
+    
+    ///消失(透明变化)
+    func disappearWithDuration(duration:Double = 0.6){
+        startAnimation(animation: animationToOpacity(opacity: 0.0, duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), name: kSpriteAnimationDisappear, delay: 0)
+    }
+    
+    ///出现(透明变化)
+    func appearWithDuration(duration:Double = 0.6){
+         startAnimation(animation: animationToOpacity(opacity: 1.0, duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), name: kSpriteAnimationAppear, delay: 0)
+    }
+    
+    ///消失(缩放变化)
+    func scaledDisappearWithDuration(duration:Double = 0.6){
+        startAnimation(animation: animationScaleXYToSize(size: 0.0, duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), name: kSpriteAnimationScaledDisappear, delay: 0)
+    }
+    
+    /// 出现(缩放变化)
+    func scaledAppearWithDuration(duration:Double){
+        if(self.sizeXY == 0){
+            self.restoreSprite();/// 复位动画
+        }
+        startAnimation(animation: animationScaleXYToSize(size: 1.0, duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), name: kSpriteAnimationScaledDisappear, delay: 0)
+        
+        
+    }
+    
+    
+    
+    ///焦点出(缩放、透明变化)
+    func zoomOutWithScale(scale:CGFloat = 1.62, duration:Double = 1.38){
+    
+        startAnimation(animation: animationWithGroup(group: [animationWithMode(mode: .SCALE_XY, keyValues: [1.0,scale], keyTimes: [0.0, 1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0),animationWithMode(mode: .OPACITY, keyValues: [1.0, 0.0], keyTimes: [0.0, 1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationZoomOut, delay: 0.0);
+        
+        
+    }
+    
+    /// 焦点进(缩放、透明变化)
+    func zoomInWithScale(scale:CGFloat = 1.62, duration:Double = 1.38){
+        
+        startAnimation(animation: animationWithGroup(group: [animationWithMode(mode: .SCALE_XY, keyValues: [scale, 1.0], keyTimes: [0.0, 1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0),animationWithMode(mode: .OPACITY, keyValues: [0.0, 1.0], keyTimes: [0.0, 1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationZoomOut, delay: 0.0);
+        
+    }
+    
+    ///滚动(旋转、位移变化)
+    func  rollToPosition(position:CGPoint, duration:Double){
+        /// 半径
+        let radius = (self.layer.bounds.size.width + self.layer.bounds.size.height)/2.0/2.0 ; /// 半径
+        let distance = KATMath.distance(pointA: position, pointB: self.layer.position) /// 距离
+        let clockwise = position.x >= self.layer.position.x ? true : false
+        self.animationTimingMode = kCAMediaTimingFunctionLinear;
+    
+        startAnimation(animation: animationWithGroup(group: [animationToPosition(position: position, duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), animationRotationZToAngle(angle: self.angleZ + (clockwise ? (distance/radius):(-distance/radius)), duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), name: kSpriteAnimationRoll, delay: 0.0)
+        
+        
+        
+        
+    }
+    
+    ///滚进(旋转、位移、透明变化)
+    func rollInToPosition(position:CGPoint, duration:Double){
+       
+        let radius = (self.layer.bounds.size.width + self.layer.bounds.size.height)/2.0/2.0 ; /// 半径
+        let distance = KATMath.distance(pointA: position, pointB: self.layer.position) /// 距离
+        let clockwise = position.x >= self.layer.position.x ? true : false
+        
+        self.animationTimingMode = kCAMediaTimingFunctionLinear;
+        
+        startAnimation(animation: self.animationWithGroup(group: [animationToPosition(position: position, duration: duration, repeatCount: 1, autoreverses: false, delay: 0), animationRotationZToAngle(angle: self.angleZ + (clockwise ? (distance/radius):(-distance/radius)), duration: duration, repeatCount: 1, autoreverses: false, delay: 0),animationWithMode(mode: .OPACITY, keyValues: [0.0, 1.0], keyTimes: [0.0, 1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationRollIn, delay: 0)
+
+        
+    }
+    
+    ///滚出(旋转、位移、透明变化)
+    func rollOutToPosition(position:CGPoint, duration:Double){
+        
+        
+        let radius = (self.layer.bounds.size.width + self.layer.bounds.size.height)/2.0/2.0 ; /// 半径
+        let distance = KATMath.distance(pointA: position, pointB: self.layer.position) /// 距离
+        let clockwise = position.x >= self.layer.position.x ? true : false
+        
+        self.animationTimingMode = kCAMediaTimingFunctionLinear;
+        
+        startAnimation(animation: animationWithGroup(group: [animationToPosition(position: position, duration: duration, repeatCount: 1, autoreverses: false, delay: 0),animationRotationZToAngle(angle: self.angleZ+(clockwise ? (distance/radius) : (-distance/radius)), duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0),animationWithMode(mode: .OPACITY, keyValues: [1.0,0.0], keyTimes: [0.0, 1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationRollOut, delay: 0);
+        
+        
+        
+    }
+    
+    ///转进(旋转、缩放、透明变化)
+    func rotateInWithCircles(circles:Int = 3, duration:Double = 1.38){
+        self.animationTimingMode = kCAMediaTimingFunctionLinear;
+        startAnimation(animation: animationWithGroup(group: [animationWithMode(mode: .SCALE_XY, keyValues: [0.0,1.0], keyTimes: [0.0,1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), animationWithMode(mode: .OPACITY, keyValues: [0.0, 1.0], keyTimes: [0.0, 1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), animationRotationZToAngle(angle: self.angleZ + CGFloat.pi * 2, duration: duration/Double(circles), repeatCount: 1, autoreverses: false, delay: 0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationRotateIn, delay: 0)
+        
+        
+    }
+    
+    ///转出(旋转、缩放、透明变化)
+    func rotateOutWithCircles(circles:Int = 3, duration:Double = 1.38){
+        self.animationTimingMode = kCAMediaTimingFunctionLinear;
+        startAnimation(animation: animationWithGroup(group: [animationWithMode(mode: .SCALE_XY, keyValues: [1.0,0.0], keyTimes: [0.0,1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), animationWithMode(mode: .OPACITY, keyValues: [1.0, 0.0], keyTimes: [0.0, 1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), animationRotationZToAngle(angle: self.angleZ - CGFloat.pi * 2, duration: duration/Double(circles), repeatCount: 1, autoreverses: false, delay: 0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationRotateIn, delay: 0)
+        
+    }
+    
+    ///掉落
+    func dropToPosition(position:CGPoint, duration:Double){
+        
+         self.animationTimingMode=kCAMediaTimingFunctionEaseIn;
+         let path = UIBezierPath()
+         path.move(to: self.layer.position)
+        /// 路径
+         path.addQuadCurve(to: position, controlPoint: CGPoint(x: position.x, y: position.y))
+        
+        /// 角度
+        let angle = atan2(position.x - self.layer.position.x, position.y - self.layer.position.y);
+        startAnimation(animation: animationWithGroup(group: [animationWithPath(path: path, duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0),animationWithMode(mode: .ROTATION_Z, keyValues: [self.angleZ - angle,self.angleZ,self.angleZ + angle, self.angleZ], keyTimes: [0.0, 1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationDrop, delay: 0)
+        
+    }
+    
+    ///飘落
+    func floatToPosition(position:CGPoint, duration:Double){
+       
+      
+        let distance = KATMath.distance(pointA: position, pointB: self.layer.position) /// 距离
+        let angle = atan2(position.x - self.layer.position.x, position.y - self.layer.position.y)
+        /// 路径
+        let path = UIBezierPath()
+        path.move(to: self.layer.position)
+        
+        path.addCurve(to: position, controlPoint1: CGPoint(x: (position.x+self.layer.position.x)/2.0-(distance/2.00/tan(CGFloat.pi/6.0)*sin(CGFloat.pi/2.0-angle)), y: (position.y+self.layer.position.y)/2.0-(distance/2.0/tan(CGFloat.pi/2.0-CGFloat.pi/6.0)*cos(CGFloat.pi/2.0-angle))), controlPoint2: CGPoint(x:(position.x+self.layer.position.x)/2.0+(distance/2.0/tan(CGFloat.pi/6.0)*sin(CGFloat.pi/2.0+angle)), y:(position.y+self.layer.position.y)/2.0+(distance/2.0/tan(CGFloat.pi/2.0-CGFloat.pi/6.0)*cos(CGFloat.pi/2.0-angle))))
+        
+        ///调整z轴
+        self.layer.zPosition = self.layer.zPosition + self.layer.bounds.size.height;
+        self.animationTimingMode = kCAMediaTimingFunctionLinear;
+        startAnimation(animation: animationWithGroup(group: [animationWithPath(path: path, duration: duration, repeatCount: 1, autoreverses: false, delay: 0),animationWithMode(mode: .ROTATION_Z, keyValues: [self.angleZ - angle, self.angleZ - angle + CGFloat.pi, self.angleZ - angle], keyTimes: [0.0, 0.5, 1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0),animationWithMode(mode: .ROTATION_X, keyValues: [self.angleX, self.angleX+CGFloat.pi, self.angleX], keyTimes: [0.0,0.5,1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationFloat, delay: 0)
+    
+    }
+    
+    ///快速移动
+    func moveQuicklyToPosition(position:CGPoint, degree:Double, duration:Double){
+        
+        var directionX:Double = 0.0
+        var directionY:Double = 0.0
+        if(position.x > self.layer.position.x){
+            directionX = 1.0
+        }else{
+            directionX = -1.0
+        }
+        
+        if(position.y > self.layer.position.y){
+            directionY = 1.0
+        }else{
+            directionY = -1.0
+        }
+        
+        self.animationTimingMode = kCAMediaTimingFunctionEaseInEaseOut;
+        
+        startAnimation(animation:animationWithMode(mode: .POSITION, keyValues: [self.layer.position,CGPoint(x: Double(position.x) + directionX * degree, y: Double(position.y) + directionY * degree), CGPoint(x: Double(position.x) - directionX*degree*0.4, y: Double(position.y) - directionY*degree*0.4), CGPoint(x: Double(position.x) + directionX*degree*0.2, y: Double(position.y) + directionY*degree*0.2),self.layer.position], keyTimes: [0.0,0.55,0.7,0.85,1.0], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationMoveQuickly, delay: 0);
+        
+    }
+    
+    ///移动
+    func moveToPosition(position:CGPoint, duration:Double){
+        self.startAnimation(animation: animationToPosition(position: position, duration: duration, repeatCount: 1, autoreverses: false, delay: 0.0), name: kSpriteAnimationMove, delay: 0)
+    }
+    
+    ///移动出现
+    func comeInToPosition(position:CGPoint, duration:Double){
+        self.startAnimation(animation: animationWithGroup(group: [animationToPosition(position: position, duration: duration, repeatCount: 1, autoreverses: false, delay: 0),animationToOpacity(opacity: 1.0, duration: duration, repeatCount: 1.0, autoreverses: false, delay: 0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationComeIn, delay: 0)
+    }
+    
+    /// 移动消失
+    func goOutToPosition(position:CGPoint, duration:Double){
+                self.startAnimation(animation: animationWithGroup(group: [animationToPosition(position: position, duration: duration, repeatCount: 1, autoreverses: false, delay: 0),animationToOpacity(opacity: 0.0, duration: duration, repeatCount: 1.0, autoreverses: false, delay: 0)], duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationComeIn, delay: 0)
+    }
+    
+    /// 跳跃
+    func jumpToPosition(position:CGPoint, height:CGFloat, duration:Double){
+        let x1 = position.x - self.layer.position.x
+        let y1 = self.layer.position.y - position.y
+        
+        let k = height
+        let h = x1/(sqrt(1.0 - y1/k) + 1.0)
+        let path = UIBezierPath()
+        path.move(to: self.layer.position)
+        path.addQuadCurve(to: self.layer.position, controlPoint: CGPoint(x: self.layer.position.x + h, y: self.layer.position.y - k - (k-y1/2.0)))
+        self.animationTimingMode = kCAMediaTimingFunctionEaseInEaseOut
+        startAnimation(animation: animationWithPath(path: path, duration: duration, repeatCount: 1, autoreverses: false, delay: 0), name: kSpriteAnimationJump, delay: 0.0);
+        
+    }
+    
+    
+}
+
 
 // MARK:- 实现CAAnimationDelegate协议 动画执行
 extension KATSprite:CAAnimationDelegate{
@@ -1450,14 +1864,13 @@ extension KATSprite:CAAnimationDelegate{
         }
         
         /// 执行队列剩下的动画
-        if(self.animationQueue.count == 0){ /// 全部执行完
+        if(self.animationQueue.count != 0){ /// 全部执行完
             let nextAnimation = self.animationQueue.first!;
             if(kSpriteModePosition == (nextAnimation.value(forKey: kSpriteKeyMode) as! String)){
                 self.interactInAnimating = false;
             }
             nextAnimation.beginTime = CACurrentMediaTime() /// 队列里面的动画取消延迟时间
             self.layer.add(nextAnimation, forKey: nextAnimation.value(forKey: kSpriteKeyName) as? String);
-            
             
         }else{
             self.currentAnimation = nil;
@@ -1467,181 +1880,7 @@ extension KATSprite:CAAnimationDelegate{
         }
  
     }
-   
-    
- 
-    
-    // MARK:- 变形
-    ///旋转(相对初始值)
-    func transformRotateToAngle(angle:CGFloat){
-        
-    }
-    ///旋转X轴（上下转）
-    func transformRotateXToAngle(angle:CGFloat){
-        
-    }
-    
-    ///旋转Y轴（左右转）
-    func transformRotateYToAngle(angle:CGFloat){
-        
-    }
-    
-    ///水平镜像(相对初始值)
-    func transformHorizontalMirror(){
-        
-    }
-    
-    /// 垂直镜像(相对初始值)
-    func transformVerticalMirror(){
-        
-    }
-    
-    ///缩放(相对初始值)(宽高,比例,1为原始值)
-    func transformScaleToWitdh(width:CGFloat, height:CGFloat){
-        
-    }
-    
-    ///复位
-    func restoreSprite(){
-        
-    }
-    
-    ///内容调整尺寸
-    func resizeForContents(){
-        
-        
-    }
- 
-    
-    
-    // MARK:-常用动画
-    ///心跳(等比缩放)(参数小于0则用默认值)
-    func heartbeatWithScale(scale:CGFloat, duration:Double,repeatCount:Float){
-        
-    }
-    
-    ///闪烁(透明变化)(参数小于0则用默认值)
-    func  blinkWithAlpha(alpha:CGFloat, duration:Double, repeatCount:Float) {
-        
-    }
-    
-    ///转动(Z轴旋转)(参数小于0则用默认值)
-    func rotateWithDuration(duration:Double, repeat:CGFloat, clockwise:Bool){
-        
-        
-    }
-    
-    ///翻转(XY轴旋转)(参数小于0则用默认值)
-    func flipWithDuration(duration:Double, repeatCount:Float, clockwise:Bool, vertical:Bool){
-        
-    }
-    
-    /// 摇晃(左右)(参数小于0则用默认值)
-    func shakeWithDegree(degree:CGFloat, duration:Double, repeatCount:Float){
-        
-    }
-    
-    //////震动(上下)(参数小于0则用默认值)
-    func shockWithDegree(degree:CGFloat, duration:Double, repeatCount:Float){
-        
-    }
-    
-    ///抖动(旋转)(参数小于0则用默认值)
-    func ditherWithDegree(degree:CGFloat, duration:Double, repeatCount:Float){
-        
-    }
-    
-    ///消失(透明变化)
-    func disappearWithDuration(duration:Double){
-        
-    }
 
-    ///出现(透明变化)
-    func appearWithDuration(duration:Double){
-        
-    }
-
- ///消失(缩放变化)
-    func scaledDisappearWithDuration(duration:Double){
-        
-    }
-
-   /// 出现(缩放变化)
-    func scaledAppearWithDuration(duration:Double){
-        
-    }
-
-    
-    
-    ///焦点出(缩放、透明变化)
-    func zoomOutWithScale(scale:CGFloat, duration:Double){
-        
-    }
- 
-    /// 焦点进(缩放、透明变化)
-    func zoomInWithScale(scale:CGFloat, duration:Double){
-        
-    }
-
-    ///滚动(旋转、位移变化)
-    func  rollToPosition(position:CGPoint, duration:Double){
-        
-    }
-    
-    ///滚进(旋转、位移、透明变化)
-    func rollInToPosition(position:CGPoint, duration:Double){
-        
-    }
-    
-    ///滚出(旋转、位移、透明变化)
-    func rollOutToPosition(position:CGPoint, duration:Double){
-        
-    }
-    
-    ///转进(旋转、缩放、透明变化)
-    func rotateInWithCircles(circles:Int, duration:Double){
-        
-    }
-    
-    ///转出(旋转、缩放、透明变化)
-    func rotateOutWithCircles(circles:Int, duration:Double){
-        
-    }
-    
-    ///掉落
-    func dropToPosition(position:CGPoint, duration:Double){
-        
-    }
-    
-    ///飘落
-    func floatToPosition(position:CGPoint, duration:Double){
-        
-    }
-    
-    ///快速移动
-    func moveQuicklyToPosition(position:CGPoint, degree:CGFloat, duration:Double){
-        
-    }
-    
-    ///移动
-    func moveToPosition(position:CGPoint, duration:Double){
-        
-    }
-    
-    ///移动出现
-    func comeInToPosition(position:CGPoint, duration:Double){
-        
-    }
-    
-    /// 移动消失
-    func goOutToPosition(position:CGPoint, duration:Double){
-        
-    }
-    
-    /// 跳跃
-    func jumpToPosition(position:CGPoint, height:CGFloat, duration:Double){
-        
-    }
     
     /// 重新播放
     func replay(){
