@@ -8,6 +8,9 @@
 
 import Foundation
 
+//URI例: https://kat@kantice.com:80/path?id=1&name=k#frag
+//       scheme://user@host:80/path?query#fragment
+
 class KATRegularExpression: NSObject {
     /*
  
@@ -39,7 +42,7 @@ class KATRegularExpression: NSObject {
         let regularEx  =  try? NSRegularExpression(pattern: pattern, options: .caseInsensitive);
     
         if let regularEx = regularEx{
-          let matchResult = regularEx.matches(in: sourceText, options: .withoutAnchoringBounds, range: NSRange(location: 0, length: sourceText.length))
+          let matchResult = regularEx.matches(in: sourceText, options: .reportProgress, range: NSRange(location: 0, length: sourceText.length))
             for result in matchResult{
                 arr.append(sourceText.sliceString(result.range.location..<(result.range.location + result.range.length)));
             }
@@ -47,6 +50,19 @@ class KATRegularExpression: NSObject {
         return arr;
     }
     
+    ///  返回位移匹配的结果
+    fileprivate class func firstMatchRegularExpression(pattern:String,sourceText:String) -> String {
+        var result = "";
+        let regularEx  =  try? NSRegularExpression(pattern: pattern, options: .caseInsensitive);
+        if let regularEx = regularEx{
+        let matchResult = regularEx.firstMatch(in: sourceText, options: .reportProgress, range: NSRange(location: 0, length: sourceText.length));
+         if let matchResult = matchResult{
+            result = sourceText.sliceString(matchResult.range.location..<(matchResult.range.location + matchResult.range.length))
+         }
+        }
+        
+        return result
+    }
     
 }
 
