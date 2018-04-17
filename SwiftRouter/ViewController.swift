@@ -53,12 +53,7 @@ class ViewController: UIViewController {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        super.touchesBegan(touches, with: event);
-        
-        let viewtest =  KATSprite(frame: CGRect(x: 100, y: 200, width: 200, height: 100))
-//        viewtest.zoomInWithScale()
-        viewtest.rollOutToPosition(position: CGPoint(x: 300, y: 400), duration: 1.5);
-        viewtest.backgroundColor = UIColor.red
-        self.view.addSubview(viewtest);
+    
         
 //        let vc = UIAlertController(title: "哈哈哈", message: "-----", preferredStyle: .actionSheet);
 //        let action1 = UIAlertAction(title: "sure", style: .default) { (action) in
