@@ -60,7 +60,7 @@ class SecondViewController: UIViewController {
         
 //        KATRouter.route(to: "kViewController");
 
-        
+        self.navigationController?.viewControllers.insert(ViewController(), at: 0);
         
         
         

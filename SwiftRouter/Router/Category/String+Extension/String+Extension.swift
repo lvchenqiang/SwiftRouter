@@ -108,7 +108,7 @@ extension String{
 extension String {
     
         func indexesOf(pattern: String) -> [Int]? {
-            let patternLength: Int = pattern.characters.count
+            let patternLength: Int = pattern.length
             /* Let's calculate the Z-Algorithm on the concatenation of pattern and text */
             let zeta = ZetaAlgorithm(ptrn: pattern + "💲" + self)
             
