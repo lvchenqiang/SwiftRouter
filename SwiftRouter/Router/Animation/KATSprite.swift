@@ -957,7 +957,7 @@ extension KATSprite{
             
             
         case .CONTENTS: /// 内容变换模式
-            if(self.layer.contents != nil && self.contents != (self.layer.contents as? UIImage?)){
+            if(self.layer.contents != nil && self.contents!  !=  (self.layer.contents as! UIImage)){
                 self.contents = self.layer.contents as? UIImage;
             }
             animation = CAKeyframeAnimation(keyPath: "contents");

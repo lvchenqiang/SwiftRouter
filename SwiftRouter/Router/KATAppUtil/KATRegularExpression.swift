@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 //URI例: https://kat@kantice.com:80/path?id=1&name=k&age=3#frag
 //       scheme://user@host:80/path?query#fragment
 
@@ -59,7 +59,7 @@ class KATRegularExpression: NSObject {
     }
     
     /// 多匹配 返回对应的位置信息
-    fileprivate class func matchesRegularExpression(pattern:String,sourceText:String) -> [NSRange] {
+    fileprivate class func matchesNSRangeRegularExpression(pattern:String,sourceText:String) -> [NSRange] {
          var arr = [NSRange]()
         let regularEx  =  try? NSRegularExpression(pattern: pattern, options: .caseInsensitive);
         
@@ -103,21 +103,32 @@ extension KATRegularExpression{
    
     // MARK:获取url的协议名
     class func regularExpressionProtocolName(sourceText:String) -> [String]{
-        return matchesRegularExpression(pattern: KProtocolNameExpression, sourceText: sourceText).compactMap({ (index) -> String in
+        return matchesRegularExpression(pattern: KProtocolNameExpression, sourceText: sourceText).flatMap({ (index) -> String in
             return index.replacingOccurrences(of: "://", with: "");
         })
+//        return matchesRegularExpression(pattern: KProtocolNameExpression, sourceText: sourceText).compactMap({ (index) -> String in
+//            return index.replacingOccurrences(of: "://", with: "");
+//        })
     }
     // MARK:获取url的域名
     class func regularExpressionHostName(sourceText:String) -> [String]{
         
-        return matchesRegularExpression(pattern: KHostNameExpression, sourceText: sourceText).compactMap({ (index) -> String in
+//        return matchesRegularExpression(pattern: KHostNameExpression, sourceText: sourceText).compactMap({ (index) -> String in
+//            return index.replacingOccurrences(of: "://", with: "").replacingOccurrences(of: ":", with: "").replacingOccurrences(of: "/", with: "")
+//        })
+
+        return matchesRegularExpression(pattern: KHostNameExpression, sourceText: sourceText).flatMap({ (index) -> String in
             return index.replacingOccurrences(of: "://", with: "").replacingOccurrences(of: ":", with: "").replacingOccurrences(of: "/", with: "")
         })
     }
     // MARK:获取url的端口号
     class func regularExpressionPort(sourceText:String) -> [String]{
-        return matchesRegularExpression(pattern: KPortExpression, sourceText: sourceText).compactMap({ (index) -> String in
-            return index.replacingOccurrences(of: ":", with: "")
+//        return matchesRegularExpression(pattern: KPortExpression, sourceText: sourceText).compactMap({ (index) -> String in
+//            return index.replacingOccurrences(of: ":", with: "")
+//        })
+        
+        return matchesRegularExpression(pattern: KPortExpression, sourceText: sourceText).flatMap({ (index) -> String in
+            return index.replacingOccurrences(of: ":", with: "");
         })
     }
     // MARK:返回url里面的参数

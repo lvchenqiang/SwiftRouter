@@ -117,9 +117,10 @@ class KATRouter: NSObject {
     fileprivate var showingHost = "";
      // MARK:视图层
     /// 根控制器
-    fileprivate var rootVC : UINavigationController = UINavigationController(rootViewController: KATRouterRootVC());
+    fileprivate var rootVC : UIViewController =  KATRouterRootVC()
+    
     /// 最顶层的vc
-    fileprivate var topVC:UINavigationController?
+    fileprivate var topVC:UIViewController?
     ///根VC背景图
     fileprivate var rootBg = UIImageView();
     /// 主窗口视图
@@ -222,9 +223,17 @@ class KATRouter: NSObject {
       
 //        initialize()
         /// 显示主控制器
-        router.window?.rootViewController = router.rootVC;
+    
+        LLog(router.window)
+        
+        router.window?.rootViewController = router.rootVC ;
         router.window?.makeKeyAndVisible();
 
+        
+//        let nvc = UINavigationController(rootViewController: ViewController())
+//
+        
+        
         // MARK:存储相关数据
         router.classNameMap[kRouterRootHost] = router.rootVC.className;
         router.instanceMap[kRouterRootHost] = router.rootVC;
@@ -454,7 +463,7 @@ extension KATRouter{
             
                 router.isLoaded = true; /// 正在加载中
                 
-                let topVC = router.topVC == nil ? router.rootVC : UINavigationController(rootViewController: KATAppUtil.topViewController());
+                let topVC : UIViewController = router.topVC == nil ? router.rootVC :  KATAppUtil.topViewController();
                 /// 跳转的实例
                 var vc = router.instanceMap[uri];
               
@@ -500,9 +509,12 @@ extension KATRouter{
 //                        LLog(router.backwardStack);
 //
 //                    });
-                    LLog(topVC)
-                    topVC.pushViewController(vc!, animated: false)
                     
+                    LLog(topVC)
+                    LLog(topVC.navigationController)
+                    topVC.navigationController?.pushViewController(vc!, animated: false)
+//                    router.rootVC.pushViewController(vc!, animated: false)
+ 
                 }else{  ///回退视图
                     
 //                    topVC.dismiss(animated: false, completion: {
@@ -512,7 +524,9 @@ extension KATRouter{
 //                        LLog(router.backwardStack);
 //                    });
                     
-                    topVC.popViewController(animated: false)
+//                    topVC.popViewController(animated: false)
+                    
+                    
                 }
 
             });
