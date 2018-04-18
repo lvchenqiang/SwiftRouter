@@ -26,7 +26,6 @@ extension String{
     }
     //MARK:-切割字符串(区间范围 前闭后开)
     func sliceString(_ range:CountableRange<Int>)->String{
-        
         guard
             let startIndex = validStartIndex(original: range.lowerBound),
             let endIndex   = validEndIndex(original: range.upperBound),

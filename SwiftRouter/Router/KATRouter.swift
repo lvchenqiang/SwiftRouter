@@ -117,9 +117,9 @@ class KATRouter: NSObject {
     fileprivate var showingHost = "";
      // MARK:视图层
     /// 根控制器
-    fileprivate var rootVC = KATRouterRootVC();
+    fileprivate var rootVC : UINavigationController = UINavigationController(rootViewController: KATRouterRootVC());
     /// 最顶层的vc
-    fileprivate var topVC:UIViewController?
+    fileprivate var topVC:UINavigationController?
     ///根VC背景图
     fileprivate var rootBg = UIImageView();
     /// 主窗口视图
@@ -207,7 +207,7 @@ class KATRouter: NSObject {
         
        /// 处理跟视图
       
-        router.rootVC = KATRouterRootVC()
+//        router.rootVC = KATRouterRootVC()
         router.rootBg.frame = router.rootVC.view.bounds;
         router.rootBg.contentMode = .scaleAspectFill;
         router.rootBg.image = UIImage.launchImage();
@@ -338,7 +338,7 @@ extension KATRouter{
         if(host.length > 0){
              let router = KATRouter.shareRouter;
             if(router.classNameMap[host] == nil){ /// 没有注册过
-             registeRouter(className:cls.description().components(separatedBy: ".")[1], host: host);
+               registeRouter(className:cls.description().components(separatedBy: ".")[1], host: host);
                 return true;
             }
         }
@@ -407,7 +407,6 @@ extension KATRouter{
             
         }
         
-        
         if(uri.length > 0){
             self.route(to: uri, selector: selector, obj: obj, addition: nil, forward: true, handle: handle);
         }
@@ -455,7 +454,7 @@ extension KATRouter{
             
                 router.isLoaded = true; /// 正在加载中
                 
-                let topVC = router.topVC == nil ? router.rootVC : KATAppUtil.topViewController();
+                let topVC = router.topVC == nil ? router.rootVC : UINavigationController(rootViewController: KATAppUtil.topViewController());
                 /// 跳转的实例
                 var vc = router.instanceMap[uri];
               
@@ -478,6 +477,7 @@ extension KATRouter{
 //                }else{
 //
 //                }
+
                 
                  // MARK:动画转场设置
                 router.navTransition.isDismissAnimation = !forward;
@@ -488,32 +488,31 @@ extension KATRouter{
                     router.window?.layer.add(transtionAnimation(style: .PushHorizontal, duration: 0.3, forward: forward)!, forKey: nil);
                 }
                 
-                LLog(topVC)
-                LLog(vc!);
-                
-                
                 if(forward){ /// present视图
                     if(selector != nil){
                         vc!.perform(selector, with: obj);
                     }
-                    
-                    topVC.present(vc!, animated: false, completion: {
-                        router.topVC = vc;
-                         LLog("跳转结束 --- 完成");
-                        router.backwardStack.append(uri);
-                        LLog(router.backwardStack);
-                        
-                    });
+
+//                    topVC.present(vc!, animated: false, completion: {
+//                        router.topVC = UINavigationController(rootViewController: vc!);
+//                         LLog("跳转结束 --- 完成");
+//                        router.backwardStack.append(uri);
+//                        LLog(router.backwardStack);
+//
+//                    });
+                    LLog(topVC)
+                    topVC.pushViewController(vc!, animated: false)
                     
                 }else{  ///回退视图
                     
-                    topVC.dismiss(animated: false, completion: {
-                        /// diss结束
-                        LLog("页面回退 ----完成");
-                        removeHostFromBackStack(index: router.backwardStack.count - 1);
-                        LLog(router.backwardStack);
-                    });
+//                    topVC.dismiss(animated: false, completion: {
+//                        /// diss结束
+//                        LLog("页面回退 ----完成");
+//                        removeHostFromBackStack(index: router.backwardStack.count - 1);
+//                        LLog(router.backwardStack);
+//                    });
                     
+                    topVC.popViewController(animated: false)
                 }
 
             });
@@ -602,24 +601,16 @@ extension KATRouter{
     
     
     /// Present 视图
-
-    
     /// mark:此处其实没有必要做真正的替换 只需hook 跳转过程就行
 //      KATSwizzle.KATSwizzleMethod(originalCls: UIViewController.self, swizzleCls: KATRouter.self, originalSelector: #selector(UIViewController.present(_:animated:completion:)), swizzledSelector: #selector(present(_:animated:completion:)));
-    hookPresentVC();
+    hookShowVC();
    
-
-    
     /// Dismiss 视图 只需hook 跳转过程就行
-    
-//     KATRouter.shareRouter._dissmissViewController = class_getMethodImplementation(UIViewController.self, #selector(UIViewController.dismiss(animated:completion:)));
+//    KATRouter.shareRouter._dissmissViewController = class_getMethodImplementation(UIViewController.self, #selector(UIViewController.dismiss(animated:completion:)));
     
 //     KATSwizzle.KATSwizzleMethod(originalCls: UIViewController.self, swizzleCls: KATRouter.self, originalSelector: #selector(UIViewController.dismiss(animated:completion:)), swizzledSelector: #selector(KATRouter.dismiss(animated:completion:)));
-    hookDissVC();
-    
-   
-    
-    
+    hookHideVC();
+
     }
     
     
@@ -663,10 +654,10 @@ extension KATRouter{
 extension KATRouter {
     
     /// hook  present函数
-  class  func hookPresentVC(){
-        let originSelector =  #selector(UIViewController.present(_:animated:completion:))
+  class  func hookShowVC(){
+        let originSelector =  #selector(UINavigationController.pushViewController(_:animated:))
         
-        let originMethod = class_getInstanceMethod(UIViewController.self, originSelector)
+        let originMethod = class_getInstanceMethod(UINavigationController.self, originSelector)
         
         let originalIMP = unsafeBitCast(method_getImplementation(originMethod!), to: PresentType.self);
         
@@ -685,10 +676,10 @@ extension KATRouter {
     }
     
     /// hook dismiss函数
-   class func hookDissVC(){
+   class func hookHideVC(){
         
-    let originSelector =  #selector(UIViewController.dismiss(animated:completion:))
-    let originMethod = class_getInstanceMethod(UIViewController.self, originSelector)
+    let originSelector =  #selector(UINavigationController.popViewController(animated:))
+    let originMethod   =  class_getInstanceMethod(UINavigationController.self, originSelector)
 //
     let originalIMP = unsafeBitCast(method_getImplementation(originMethod!), to: DismissType.self);
 

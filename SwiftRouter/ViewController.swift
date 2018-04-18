@@ -45,18 +45,15 @@ class ViewController: UIViewController {
         
         
         
+       
+        
         
         
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        super.touchesBegan(touches, with: event);
-        
     
-        
-     
-        
-        
         
 //        let vc = UIAlertController(title: "哈哈哈", message: "-----", preferredStyle: .actionSheet);
 //        let action1 = UIAlertAction(title: "sure", style: .default) { (action) in
