@@ -60,7 +60,7 @@ class SecondViewController: UIViewController {
         
 //        KATRouter.route(to: "kViewController");
 
-        self.navigationController?.viewControllers.insert(ViewController(), at: 0);
+
         
         
         
@@ -84,4 +84,19 @@ class SecondViewController: UIViewController {
     }
     */
 
+}
+
+extension SecondViewController : KATRouterDelegate{
+    
+    func routingFinish(values: NSDictionary, backward: Bool) {
+        
+        LLog(values);
+        
+    }
+    
+    func allowRouting(values: NSDictionary) -> Bool {
+        LLog(values);
+        
+        return true;
+    }
 }

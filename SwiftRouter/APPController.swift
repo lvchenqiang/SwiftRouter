@@ -20,6 +20,7 @@ class APPController: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
                 UIViewController.initializeOnceMethod();
         // Override point for customization after application launch.
+    
         
         KATRouter.registeRouter(className: "ViewController", host: "kViewController");
         KATRouter.registeRouter(className: "SecondViewController", host: "kSecondViewController");

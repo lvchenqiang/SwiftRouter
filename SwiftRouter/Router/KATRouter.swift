@@ -52,16 +52,27 @@ fileprivate let  kRouterRootHost = "router_root_host";
 fileprivate let  kRouterQueueRouting = "dk_router_queue_routing";
 fileprivate let  kROUTER_ROUTING_TEST_INTERVAL = (0.5);
 // MARK:定义路由的协议
-protocol KATRouterDelegate: NSObjectProtocol {
+@objc protocol KATRouterDelegate: NSObjectProtocol {
+    
     // MARK:路由相关
     /// 路由跳转完成
-    func routingFinish(values:NSDictionary,backward:Bool);
+    @objc optional  func routingFinish(values:NSDictionary,backward:Bool);
     /// 路由跳转即将开始
-    func routingBegin(values:NSDictionary,backward:Bool);
+    @objc optional func routingBegin(values:NSDictionary,backward:Bool);
     /// 路由跳转到其他vc
-    func riutingDismiss(values:NSDictionary,backward:Bool);
+    @objc optional func riutingDismiss(values:NSDictionary,backward:Bool);
    /// 是否允许路由的跳转 (VC上将要执行路由跳转行为时触发 返回YES表示允许，若没有实现该回调方法， 则都允许路由 侧滑无效)
-    func allowRouting(values:NSDictionary) -> Bool;
+    
+    @discardableResult
+    @objc optional func allowRouting(values:NSDictionary) -> Bool;
+ 
+
+
+}
+
+
+protocol KatRouterAppLifeCycleDelegate:NSObjectProtocol {
+    
     /// 接受到消息
     func receiverRouterMessage(values:NSDictionary);
     /// 实例即将被释放
@@ -92,7 +103,8 @@ protocol KATRouterDelegate: NSObjectProtocol {
     
     ///App注册远程通知
     func appRegisteredRemoteNotificationWithDeviceToken(deviceToken:Data);
-
+    
+    
 }
 
 // MARK:定义路由的实体类
@@ -117,7 +129,8 @@ class KATRouter: NSObject {
     fileprivate var showingHost = "";
      // MARK:视图层
     /// 根控制器
-    fileprivate var rootVC : UIViewController =  KATRouterRootVC()
+    
+    fileprivate let rootVC = KATRouterRootVC()
     
     /// 最顶层的vc
     fileprivate var topVC:UIViewController?
@@ -225,12 +238,13 @@ class KATRouter: NSObject {
         /// 显示主控制器
     
         LLog(router.window)
+
+        router.window?.rootViewController = router.rootVC;
         
-        router.window?.rootViewController = router.rootVC ;
         router.window?.makeKeyAndVisible();
 
         
-//        let nvc = UINavigationController(rootViewController: ViewController())
+
 //
         
         
@@ -315,6 +329,7 @@ extension KATRouter{
     ///设置路由跳转时的动作(
     class func setRouteWithURIAction(action:@escaping (NSDictionary,Any) -> NSDictionary){
         KATRouter.shareRouter.routeWithURIAction = action;
+       
     }
     /// 设置路由跳转的所有的动作
     class func setRouteAction(action:@escaping (NSDictionary)-> Void){
@@ -463,7 +478,7 @@ extension KATRouter{
             
                 router.isLoaded = true; /// 正在加载中
                 
-                let topVC : UIViewController = router.topVC == nil ? router.rootVC :  KATAppUtil.topViewController();
+                let topVC : UIViewController = KATAppUtil.topViewController();
                 /// 跳转的实例
                 var vc = router.instanceMap[uri];
               
@@ -478,14 +493,11 @@ extension KATRouter{
                         vc =  classtype.init();
                     }
                 }
- 
-                /// 判断路由是否允许回调
-//                if((topVC as? KATRouterDelegate) != nil && topVC.responds(to:#selector(KATRouterDelegate.allowRouting(values:)))){ /// 实现了响应的代理方法 且允许跳转
-//
-//
-//                }else{
-//
-//                }
+                if(vc is KATRouterDelegate && vc!.responds(to: #selector(KATRouterDelegate.allowRouting(values:)))){
+                    LLog("实现了协议");
+                    (vc as! KATRouterDelegate).allowRouting!(values: NSDictionary(dictionary: ["key":"value"]));
+                }
+
 
                 
                  // MARK:动画转场设置
@@ -502,29 +514,26 @@ extension KATRouter{
                         vc!.perform(selector, with: obj);
                     }
 
-//                    topVC.present(vc!, animated: false, completion: {
-//                        router.topVC = UINavigationController(rootViewController: vc!);
-//                         LLog("跳转结束 --- 完成");
-//                        router.backwardStack.append(uri);
-//                        LLog(router.backwardStack);
-//
-//                    });
+                    topVC.present(vc!, animated: false, completion: {
+                      
+                         LLog("跳转结束 --- 完成");
+                        router.backwardStack.append(uri);
+                        LLog(router.backwardStack);
+
+                    });
                     
-                    LLog(topVC)
-                    LLog(topVC.navigationController)
-                    topVC.navigationController?.pushViewController(vc!, animated: false)
-//                    router.rootVC.pushViewController(vc!, animated: false)
+ 
  
                 }else{  ///回退视图
                     
-//                    topVC.dismiss(animated: false, completion: {
-//                        /// diss结束
-//                        LLog("页面回退 ----完成");
-//                        removeHostFromBackStack(index: router.backwardStack.count - 1);
-//                        LLog(router.backwardStack);
-//                    });
+                    topVC.dismiss(animated: false, completion: {
+                        /// diss结束
+                        LLog("页面回退 ----完成");
+                        removeHostFromBackStack(index: router.backwardStack.count - 1);
+                        LLog(router.backwardStack);
+                    });
                     
-//                    topVC.popViewController(animated: false)
+
                     
                     
                 }
