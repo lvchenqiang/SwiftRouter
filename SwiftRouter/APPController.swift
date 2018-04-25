@@ -27,7 +27,7 @@ class APPController: UIResponder, UIApplicationDelegate {
           LLog( KATRegularExpression.regularExpressionProtocolName(sourceText: "https=k#frag://=k#frag://"))
           LLog(KATRegularExpression.regularExpressionPort(sourceText: "https://kat@kantice.com:80/path?id=1&name=k#frag"))
         LLog(KATRegularExpression.regularExpressionParam(sourceText: "https://kat@kantice.com:80/path?id=1&name=k#frag"));
-      
+        LLog(CGFloat.leastNonzeroMagnitude);
         return true
     }
     
