@@ -80,7 +80,7 @@ extension String{
     
 }
 
-
+// MARK:数据类型转换 string to ---> {目标类型}
 extension String{
     
     var currentClass:AnyClass? {
@@ -100,11 +100,37 @@ extension String{
         }
     }
     
+    /// parse url eg:id=1&name=k
+    var toUrlParams:[String:String]{
+        get{
+            var params = [String:String]()
+            self.split(separator: "&").forEach { (index) in
+                let tmp =  index.split(separator: "=")
+                if(tmp.count > 1){
+                    params[String(tmp[0])] = String(tmp[1])
+                }
+            }
+            return params;
+        }
+    }
+    
+    /// parse url eg:/path/qweqwe
+    var toUrlPath:[String]{
+        get{
+           var params = [String]()
+            self.split(separator: "/").forEach { (index) in
+                params.append(index);
+            }
+            return params;
+        }
+        
+    }
+    
 }
 
 
 
-// MARK:搜索str所有所在位置的集合
+// MARK:搜索子 str所有所在位置的集合
 extension String {
     
         func indexesOf(pattern: String) -> [Int]? {

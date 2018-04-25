@@ -52,7 +52,7 @@ class DKArray<T>: NSObject{
     }
     
     
-    override var description: String
+     var desc: String
         {
         get {
             var des = "";

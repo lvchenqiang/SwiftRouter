@@ -13,21 +13,8 @@ import UIKit
 
 
 class KATURIParser: NSObject {
-    class func  parseURI(uri:String) -> NSDictionary{
-        var uri_info = "";
-        var dic = NSDictionary();
-        
-        if(uri.length > 0){ /// 处理拿到的uri
-            uri_info = uri.replacingOccurrences(of: " ", with: ""); // 去掉空格
-            
-            
-            
-        }
-        
-        
-        
-        
-        
-        return dic;
-    }
+   
+    
+    
+    
 }
