@@ -130,8 +130,8 @@ class KATRouter: NSObject {
      // MARK:视图层
     /// 根控制器
     
-    fileprivate let rootVC = KATRouterRootVC()
-    
+//    fileprivate let rootVC = KATRouterRootVC()
+    fileprivate let rootVC =  KATRouterRootVC();
     /// 最顶层的vc
     fileprivate var topVC:UIViewController?
     ///根VC背景图
@@ -243,8 +243,7 @@ class KATRouter: NSObject {
         
         router.window?.makeKeyAndVisible();
 
-        
-
+//        let _ =   UINavigationController(rootViewController: router.rootVC)
 //
         
         
@@ -495,11 +494,12 @@ extension KATRouter{
                 }
                 if(vc is KATRouterDelegate && vc!.responds(to: #selector(KATRouterDelegate.allowRouting(values:)))){
                     LLog("实现了协议");
-                    (vc as! KATRouterDelegate).allowRouting!(values: NSDictionary(dictionary: ["key":"value"]));
+                    let isAllow = (vc as! KATRouterDelegate).allowRouting!(values: NSDictionary(dictionary: ["key":"value"]));
+                    if(!isAllow){
+                        return;
+                    }
                 }
 
-
-                
                  // MARK:动画转场设置
                 router.navTransition.isDismissAnimation = !forward;
                 vc!.transitioningDelegate = router.navTransition;
@@ -516,10 +516,15 @@ extension KATRouter{
 
                     topVC.present(vc!, animated: false, completion: {
                       
-                         LLog("跳转结束 --- 完成");
+                        LLog("跳转结束 --- 完成");
                         router.backwardStack.append(uri);
                         LLog(router.backwardStack);
-
+                        if(handle != nil){
+                            handle!();
+                        }
+                        // 添加手势
+                        vc?.allowSlide = true;
+                    
                     });
                     
  
@@ -531,6 +536,9 @@ extension KATRouter{
                         LLog("页面回退 ----完成");
                         removeHostFromBackStack(index: router.backwardStack.count - 1);
                         LLog(router.backwardStack);
+                        if(handle != nil){
+                            handle!();
+                        }
                     });
                     
 
@@ -776,6 +784,10 @@ extension KATRouter {
         }
     }
     
+    
+    @objc fileprivate class func handlePanGes(ges:UIPanGestureRecognizer){
+        LLog("------------");
+    }
     
 }
 

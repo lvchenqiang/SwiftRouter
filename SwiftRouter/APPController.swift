@@ -25,10 +25,18 @@ class APPController: UIResponder, UIApplicationDelegate {
         KATRouter.registeRouter(className: "ViewController", host: "kViewController");
         KATRouter.registeRouter(className: "SecondViewController", host: "kSecondViewController");
    
-          LLog( KATRegularExpression.regularExpressionProtocolName(sourceText: "https=k#frag://=k#frag://"))
-          LLog(KATRegularExpression.regularExpressionPort(sourceText: "https://kat@kantice.com:80/path?id=1&name=k#frag"))
-        LLog(KATRegularExpression.regularExpressionParam(sourceText: "https://kat@kantice.com:80/path?id=1&name=k#frag"));
-      
+        
+        let url:URL = URL(string: "https://kat@kantice.com:80/path/qweqwe?id=1&name=k#frag")!;
+        LLog(url.scheme)
+        LLog(url.port)
+        LLog(url.host)
+        LLog(url.user)
+        LLog(url.password)
+        LLog(url.fragment)
+        LLog(url.query)
+        LLog(url.path)
+       
+        
         return true
     }
     
