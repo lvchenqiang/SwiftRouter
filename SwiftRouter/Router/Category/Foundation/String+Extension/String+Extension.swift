@@ -119,7 +119,7 @@ extension String{
         get{
            var params = [String]()
             self.split(separator: "/").forEach { (index) in
-                params.append(index);
+                params.append(String(index));
             }
             return params;
         }
