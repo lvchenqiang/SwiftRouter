@@ -686,9 +686,9 @@ extension KATRouter {
     
     /// hook  present函数
   class  func hookShowVC(){
-        let originSelector =  #selector(UINavigationController.pushViewController(_:animated:))
+        let originSelector =  #selector(UIViewController.present(_:animated:completion:))
         
-        let originMethod = class_getInstanceMethod(UINavigationController.self, originSelector)
+        let originMethod = class_getInstanceMethod(UIViewController.self, originSelector)
         
         let originalIMP = unsafeBitCast(method_getImplementation(originMethod!), to: PresentType.self);
         
@@ -709,8 +709,8 @@ extension KATRouter {
     /// hook dismiss函数
    class func hookHideVC(){
         
-    let originSelector =  #selector(UINavigationController.popViewController(animated:))
-    let originMethod   =  class_getInstanceMethod(UINavigationController.self, originSelector)
+    let originSelector =  #selector(UIViewController.dismiss(animated:completion:))
+    let originMethod   =  class_getInstanceMethod(UIViewController.self, originSelector)
 //
     let originalIMP = unsafeBitCast(method_getImplementation(originMethod!), to: DismissType.self);
 
