@@ -25,11 +25,14 @@ class KATRouterRootVC: UIViewController {
         
     }
 
-
+    func gotobottom(){
+        LLog("掉漆常用方法 ");
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
 //        self.present(ViewController(), animated: false, completion: nil);
-          KATRouter.routeMap(to: "kViewController");
+//          KATRouter.routeMap(to: "kViewController");
+        self.present(BaseNavigationController(rootViewController: ViewController()), animated: false, completion: nil);
      
     }
 

@@ -35,7 +35,7 @@ extension UIView
         objc_setAssociatedObject(self, &AssociatedKeys.kActionHandlerTapBlockKey, block, .OBJC_ASSOCIATION_COPY);
     }
     
-    @objc func handleActionForTapGesture(gesture:UITapGestureRecognizer){
+    @objc fileprivate func  handleActionForTapGesture(gesture:UITapGestureRecognizer){
         if(gesture.state == .recognized){
             let block = objc_getAssociatedObject(self, &AssociatedKeys.kActionHandlerTapBlockKey) as? GestureActionBlock;
             if(block != nil){
@@ -63,7 +63,7 @@ extension UIView
         
     }
     
-    @objc func handleActionForLongPressGesture(gesture:UILongPressGestureRecognizer){
+    @objc fileprivate func  handleActionForLongPressGesture(gesture:UILongPressGestureRecognizer){
         if(gesture.state == .began){
             let block = objc_getAssociatedObject(self, &AssociatedKeys.kActionHandlerLongPressBlockKey) as? GestureActionBlock;
             if(block != nil){

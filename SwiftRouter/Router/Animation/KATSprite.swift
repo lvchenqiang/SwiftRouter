@@ -34,6 +34,29 @@ import UIKit
  
  */
 
+enum KATRouterTransitionStyle:Int{
+    case None = 0
+    case Fade
+    case MoveHorizontal
+    case MoveVertical
+    case PushHorizontal
+    case PushVertical
+    case RevealHorizontal
+    case RevealVertical
+    case CubeHorizontal
+    case CubeVertical
+    case FlipHorizontal
+    case FlipVertical
+    case Suck
+    case Ripple
+    case CurlLeft
+    case CurlRight
+    case CurlBottom
+    case NavHorizontal
+    case NavVertical
+}
+
+
 // MARK:- 常量
 
 ///动画键:类型(值为String )

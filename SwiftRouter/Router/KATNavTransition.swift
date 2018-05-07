@@ -18,7 +18,7 @@ class KATNavTransition: NSObject {
     
     class  func shareTransition() -> KATNavTransition {
         let transition = KATNavTransition();
-        transition.duration = 0.4;
+        transition.duration = 2;
         transition.isDismissAnimation = false;
         transition.isVerticalAnimation = false;
         return transition;
@@ -87,6 +87,8 @@ extension KATNavTransition:UIViewControllerAnimatedTransitioning{
                 
                 toView.frame = toView.bounds;
                 shadow.alpha = 0;
+                dissView.layer.add(KATRouter.transtionAnimation(style: .Ripple, duration: 2.0, forward: false)!, forKey: nil);
+                
             }, completion: { (finish) in
                 dissView.removeFromSuperview(); // 移除截图
 
@@ -143,7 +145,8 @@ extension KATNavTransition:UIViewControllerAnimatedTransitioning{
         
         UIView.animate(withDuration: self.duration, animations: {
             dissView.frame = CGRect(x: dissView.frame.size.width, y: dissView.frame.origin.y, width: dissView.frame.size.width, height: dissView.frame.size.height);
-            
+            dissView.layer.add(KATRouter.transtionAnimation(style: .Ripple, duration: 2.0, forward: false)!, forKey: nil);
+           
         }) { (finished) in
             dissView.removeFromSuperview();
             transitionContext.completeTransition(true); // 完成动画

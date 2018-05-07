@@ -9,27 +9,7 @@
 import Foundation
 import UIKit
 
-enum KATRouterTransitionStyle:Int{
-    case None = 0
-    case Fade
-    case MoveHorizontal
-    case MoveVertical
-    case PushHorizontal
-    case PushVertical
-    case RevealHorizontal
-    case RevealVertical
-    case CubeHorizontal
-    case CubeVertical
-    case FlipHorizontal
-    case FlipVertical
-    case Suck
-    case Ripple
-    case CurlLeft
-    case CurlRight
-    case CurlBottom
-    case NavHorizontal
-    case NavVertical
-}
+
 
 typealias BlockVoidToVoid = () -> (Void)
 
@@ -483,12 +463,12 @@ extension KATRouter{
               
                 if(vc == nil){ /// 不存在
                     let clsName =  router.classNameMap[uri];
-                      LLog(clsName!.currentClass);
+                      LLog(clsName!.toClass);
                     if(clsName == nil){
                         LLog("尚未注册的:\(uri)")
                         return ;
                     }else{ /// 新建实例
-                        let classtype = clsName!.currentClass! as! UIViewController.Type;
+                        let classtype = clsName!.toClass! as! UIViewController.Type;
                         vc =  classtype.init();
                     }
                 }
@@ -506,7 +486,7 @@ extension KATRouter{
                 vc!.modalPresentationStyle = .fullScreen;
                 
                 if(topVC != vc!){
-                    router.window?.layer.add(transtionAnimation(style: .PushHorizontal, duration: 0.3, forward: forward)!, forKey: nil);
+//                    router.window?.layer.add(transtionAnimation(style: .PushHorizontal, duration: 0.3, forward: forward)!, forKey: nil);
                 }
                 
                 if(forward){ /// present视图
@@ -740,7 +720,7 @@ extension KATRouter {
 // MARK:处理动画
 extension KATRouter {
     
-   fileprivate class func transtionAnimation(style:KATRouterTransitionStyle, duration:Double, forward:Bool) -> CATransition?{
+    class func transtionAnimation(style:KATRouterTransitionStyle, duration:Double, forward:Bool) -> CATransition?{
         switch style {
         case .None:
             return nil;

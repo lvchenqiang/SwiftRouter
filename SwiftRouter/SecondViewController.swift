@@ -21,7 +21,10 @@ class SecondViewController: UIViewController {
         btn.backgroundColor = UIColor.red;
         btn.addTapAction { (ges) -> (Void) in
             
-            KATRouter.backward();
+//            KATRouter.backward();
+            self.navigationController?.pushViewController(ViewController(), animated: false);
+            
+            
             
         }
          btn.setTitle("2222222Second  backward", for: .normal);
@@ -51,8 +54,13 @@ class SecondViewController: UIViewController {
         }
         btn2.setTitle("2222222Second forward ", for: .normal);
         self.view.addSubview(btn2);
+
     }
+  
     
+    override func viewDidAppear(_ animated: Bool) {
+       self.isFullScreenSlide = false;
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        super.touchesBegan(touches, with: event);
         
@@ -64,8 +72,7 @@ class SecondViewController: UIViewController {
         
         
         
-        
-        
+      
     }
 
     override func didReceiveMemoryWarning() {

@@ -83,7 +83,7 @@ extension String{
 // MARK:数据类型转换 string to ---> {目标类型}
 extension String{
     
-    var currentClass:AnyClass? {
+    var toClass:AnyClass? {
         get{
           
             if  let appName: String = Bundle.main.infoDictionary!["CFBundleName"] as? String{
@@ -94,7 +94,7 @@ extension String{
         
     }
     
-    var selector:Selector {
+    var toSelector:Selector {
         get {
             return Selector(self);
         }

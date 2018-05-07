@@ -203,9 +203,6 @@ extension UIViewController{
         self.isSliding = false;
         self.slideDistance = 0.0;
         
-        
-        
-        
     }
     
     

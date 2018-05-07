@@ -24,7 +24,10 @@ class ViewController: UIViewController {
         btn.backgroundColor = UIColor.blue;
         btn.addTapAction {(ges) -> (Void) in
             
-          KATRouter.backward();
+//          KATRouter.backward();
+            self.navigationController?.pushViewController(SecondViewController(), animated: false);
+            
+//            self.navigationController?.pushViewController(ViewController(), animated: false);
             
         }
         btn.setTitle("111111View back ", for: .normal);
@@ -44,8 +47,7 @@ class ViewController: UIViewController {
         self.view.addSubview(btn2);
         
         
-        
-       
+        self.isFullScreenSlide = true;
         
         
         
@@ -63,7 +65,8 @@ class ViewController: UIViewController {
 //        vc.addAction(action1);
 //
 //        self.present(vc, animated: false, completion: nil);
-        
+//        self.router(eventName: "gotobottom", userinfo: ["key":"value"])
+   
     }
     
     
