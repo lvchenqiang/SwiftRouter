@@ -42,13 +42,7 @@ func RGBA(r:CGFloat, g:CGFloat, b:CGFloat, a:CGFloat = 1) -> UIColor {
     
 }
 
-// MARK:- 延时调用
-func Delay_time(_ delayInSeconds:Double,block:@escaping ()->()){
-    DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds, execute: {
-        block();
-    })
-    
-}
+
 // MARK:- 自定义log
 func LLog<T>(_ message : T, fileName : String = #file, lineNum : Int = #line) {
     #if DEBUG

@@ -14,6 +14,11 @@ protocol Shakeable:NSObjectProtocol {
     
 }
 
+private let UIViewAnimationDuration: TimeInterval = 1
+private let UIViewAnimationSpringDamping: CGFloat = 0.5
+private let UIViewAnimationSpringVelocity: CGFloat = 0.5
+
+
 extension Shakeable where Self: UIView{
     
     //MARK:-移除所有的子视图
@@ -64,4 +69,56 @@ extension Shakeable where Self: UIView{
         self.layer.masksToBounds = true
     }
     
+    
+    /// EZSwiftExtensions
+    internal func spring(animations: @escaping (() -> Void), completion: ((Bool) -> Void)? = nil) {
+        spring(duration: UIViewAnimationDuration, animations: animations, completion: completion)
+    }
+    
+    /// EZSwiftExtensions
+    internal func spring(duration: TimeInterval, animations: @escaping (() -> Void), completion: ((Bool) -> Void)? = nil) {
+        UIView.animate(
+            withDuration: UIViewAnimationDuration,
+            delay: 0,
+            usingSpringWithDamping: UIViewAnimationSpringDamping,
+            initialSpringVelocity: UIViewAnimationSpringVelocity,
+            options: UIViewAnimationOptions.allowAnimatedContent,
+            animations: animations,
+            completion: completion
+        )
+    }
+    
+    /// EZSwiftExtensions
+    internal func animate(duration: TimeInterval, animations: @escaping (() -> Void), completion: ((Bool) -> Void)? = nil) {
+        UIView.animate(withDuration: duration, animations: animations, completion: completion)
+    }
+    
+    /// EZSwiftExtensions
+    internal func animate(animations: @escaping (() -> Void), completion: ((Bool) -> Void)? = nil) {
+        animate(duration: UIViewAnimationDuration, animations: animations, completion: completion)
+    }
+    
+    /// EZSwiftExtensions
+    internal func pop() {
+        setScale(x: 1.1, y: 1.1)
+        spring(duration: 0.2, animations: { [unowned self] () -> Void in
+            self.setScale(x: 1, y: 1)
+        })
+    }
+    
+    /// EZSwiftExtensions
+    internal func popBig() {
+        setScale(x: 1.25, y: 1.25)
+        spring(duration: 0.2, animations: { [unowned self] () -> Void in
+            self.setScale(x: 1, y: 1)
+        })
+    }
+    
+    //EZSE: Reverse pop, good for button animations
+    internal func reversePop() {
+        setScale(x: 0.9, y: 0.9)
+        UIView.animate(withDuration: 0.05, delay: 0, options: UIViewAnimationOptions.allowUserInteraction, animations: { [weak self]  in
+            self?.setScale(x: 1, y: 1)
+        })
+    }
 }

@@ -46,10 +46,9 @@ class ViewController: UIViewController {
         btn2.setTitle("111111View forward ", for: .normal);
         self.view.addSubview(btn2);
         
-        
         self.isFullScreenSlide = true;
         
-        
+   
         
     }
 

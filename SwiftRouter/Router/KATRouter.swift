@@ -453,7 +453,7 @@ extension KATRouter{
                 return ;
             }
           
-            Delay_time(router.routingProtectionDuration, block: {
+            DispatchQueue.dispatch_after(router.routingProtectionDuration, block: {
             
                 router.isLoaded = true; /// 正在加载中
                 
