@@ -14,10 +14,11 @@ extension UIResponder
 {
     
     func router(eventName:String, userinfo:[String:AnyHashable] = [String:AnyHashable]()){
+        self.next?.router(eventName: eventName, userinfo: userinfo);
         LLog("self:====\(self) eventName:====\(eventName) userinfo:====\(userinfo)")
         /// 事件继续传递
         LLog(eventName.toSelector)
-    
+     
         
     }
     

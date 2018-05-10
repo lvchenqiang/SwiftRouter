@@ -11,7 +11,6 @@ import UIKit
 
 class KATAppUtil: NSObject {
    
-    
     /// 获取屏幕的方向
     class func currentOrientation() -> UIDeviceOrientation{
         return UIDevice.current.orientation;

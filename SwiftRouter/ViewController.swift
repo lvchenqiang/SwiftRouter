@@ -64,7 +64,7 @@ class ViewController: UIViewController {
 //        vc.addAction(action1);
 //
 //        self.present(vc, animated: false, completion: nil);
-//        self.router(eventName: "gotobottom", userinfo: ["key":"value"])
+        self.router(eventName: "gotobottom", userinfo: ["key":"value"])
    
     }
     
