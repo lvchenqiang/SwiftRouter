@@ -15,6 +15,5 @@ class BaseNavigationController: UINavigationController {
 //        self.isFullScreenSlide = true;
     }
 
-    
 
 }

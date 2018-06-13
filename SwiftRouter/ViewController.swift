@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     /// appdelegate
     fileprivate let app:APPController = UIApplication.shared.delegate! as! APPController;
+   
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -48,7 +49,8 @@ class ViewController: UIViewController {
         
         self.isFullScreenSlide = true;
         
-   
+       
+        
         
     }
 
@@ -69,7 +71,7 @@ class ViewController: UIViewController {
     }
     
     
-    func loadExchangeMethod(){
+    @objc func loadExchangeMethod(){
         
    
         

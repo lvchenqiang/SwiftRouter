@@ -37,7 +37,7 @@ protocol DKLockable: class {
  *OSSpinLock已经不再安全,会出现优先级反转的问题。
  */
 @available(iOS 10.0, OSX 10.12, watchOS 3.0, tvOS 10.0, *)
-final class DKUnfairLock: DKLockable {
+fileprivate  class DKUnfairLock: DKLockable {
     private var unfairLock = os_unfair_lock_s()
     
     func lock() {
@@ -49,7 +49,7 @@ final class DKUnfairLock: DKLockable {
     }
 }
 
-fileprivate final class DKMutex: DKLockable {
+fileprivate  class DKMutex: DKLockable {
     private var mutex = pthread_mutex_t()
     
     init() {
@@ -184,7 +184,6 @@ fileprivate final class DKConditionLock: DKLockable {
 }
 // MARK:锁机制
 class KATLock: NSObject {
-    
     
     static let shareLockManager:KATLock = {
         let lock = KATLock();
