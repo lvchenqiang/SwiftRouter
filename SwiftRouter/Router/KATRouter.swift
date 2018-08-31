@@ -111,7 +111,7 @@ class KATRouter: NSObject {
     /// 根控制器
     
 //    fileprivate let rootVC = KATRouterRootVC()
-    fileprivate let rootVC =  KATRouterRootVC();
+    fileprivate let rootVC =  UINavigationController(rootViewController: KATRouterRootVC());
     /// 最顶层的vc
     fileprivate var topVC:UIViewController?
     ///根VC背景图

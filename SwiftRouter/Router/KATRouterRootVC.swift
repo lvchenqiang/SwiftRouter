@@ -32,7 +32,8 @@ class KATRouterRootVC: UIViewController {
         
 //        self.present(ViewController(), animated: false, completion: nil);
 //          KATRouter.routeMap(to: "kViewController");
-        self.present(BaseNavigationController(rootViewController: ViewController()), animated: false, completion: nil);
+        self.navigationController?.pushViewController(ViewController(), animated: false);
+//        self.present(BaseNavigationController(rootViewController: ViewController()), animated: false, completion: nil);
      
     }
 

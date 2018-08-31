@@ -21,8 +21,8 @@ class SecondViewController: UIViewController {
         btn.backgroundColor = UIColor.red;
         btn.addTapAction { (ges) -> (Void) in
             
-//            KATRouter.backward();
-            self.navigationController?.pushViewController(ViewController(), animated: false);
+            KATRouter.backward();
+//            self.navigationController?.pushViewController(ViewController(), animated: false);
             
             
             

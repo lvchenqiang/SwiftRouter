@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
 //        KATRouter.shareRouter.topVC = self;
    
-        self.view.backgroundColor = UIColor.white;
+        self.view.backgroundColor = UIColor.red;
         
      
         let btn = UIButton();
@@ -25,8 +25,8 @@ class ViewController: UIViewController {
         btn.backgroundColor = UIColor.blue;
         btn.addTapAction {(ges) -> (Void) in
             
-//          KATRouter.backward();
-            self.navigationController?.pushViewController(SecondViewController(), animated: false);
+          KATRouter.backward();
+//            self.navigationController?.pushViewController(SecondViewController(), animated: false);
             
 //            self.navigationController?.pushViewController(ViewController(), animated: false);
             

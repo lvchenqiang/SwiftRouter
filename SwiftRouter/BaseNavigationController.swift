@@ -13,6 +13,7 @@ class BaseNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.isFullScreenSlide = true;
+        
     }
 
 

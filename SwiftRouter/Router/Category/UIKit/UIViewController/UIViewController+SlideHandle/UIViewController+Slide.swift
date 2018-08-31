@@ -60,6 +60,7 @@ extension UIViewController:UIGestureRecognizerDelegate
             for popGesture in gesArr{
                 popGesture.isEnabled = enable;
             }
+          
         }
       
     }
